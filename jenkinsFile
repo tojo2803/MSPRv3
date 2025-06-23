@@ -1,12 +1,8 @@
 pipeline {
     agent any
 
-    tools {
-        // Si tu utilises Maven ou autre, définis-le ici
-    }
-
     environment {
-        SONARQUBE = 'MySonarQubeServer' // Nom du serveur configuré dans Jenkins > "Configure System"
+        SONARQUBE = 'SonarQube' // Nom du serveur défini dans Jenkins > Configure System
     }
 
     stages {
@@ -18,13 +14,21 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('MySonarQubeServer') {
-                    sh 'sonar-scanner -Dsonar.projectKey=mspr -Dsonar.sources=. -Dsonar.host.url=http://localhost:9000 -Dsonar.login=TON_TOKEN'
+                withSonarQubeEnv("${SONARQUBE}") {
+                    withCredentials([string(credentialsId: 'SONAR_AUTH_TOKEN', variable: 'SONAR_TOKEN')]) {
+                        sh '''
+                            sonar-scanner \
+                                -Dsonar.projectKey=mspr \
+                                -Dsonar.sources=. \
+                                -Dsonar.host.url=http://localhost:9000 \
+                                -Dsonar.login=$SONAR_TOKEN
+                        '''
+                    }
                 }
             }
         }
 
-        stage("Quality Gate") {
+        stage('Quality Gate') {
             steps {
                 timeout(time: 1, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
