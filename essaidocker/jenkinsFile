@@ -1,0 +1,61 @@
+pipeline {
+    agent any
+
+    environment {
+        // Variables d'env, adapter selon ton setup
+        DOCKER_COMPOSE_FILE = "docker-compose.yml"
+        SONAR_HOST_URL = "http://sonarqube:9000"  // Ton serveur SonarQube (à adapter)
+        SONAR_LOGIN = credentials('sqa_820c72de13cb48cde04b367a9af9ceefe587be5a') // Token Sonar stocké dans Jenkins Credentials
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo "Récupération du code source"
+                checkout scm
+            }
+        }
+
+        stage('Build Frontend') {
+            steps {
+                echo "Build frontend Vue.js"
+                dir('frontend') {
+                    sh 'npm install'
+                    sh 'npm run build'
+                }
+            }
+        }
+
+        stage('Build Backend') {
+            steps {
+                echo "Build backend Docker images"
+                sh 'docker-compose build'
+            }
+        }
+
+        stage('Analyse Qualité de Code') {
+            steps {
+                echo "Lancement de SonarQube Scan"
+                withSonarQubeEnv('SonarQube') {
+                    sh 'sonar-scanner'
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo "Déploiement avec Docker Compose"
+                sh 'docker-compose up -d'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline réussi 🎉'
+        }
+        failure {
+            echo 'Pipeline échoué ❌'
+        }
+    }
+}

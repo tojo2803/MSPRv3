@@ -1,0 +1,91 @@
+mspr3-pandemic-platform/
+│
+├── backend/                              # Backend avec 2 APIs
+│   ├── msprapi/                          # API CRUD (FastAPI)
+│   │   ├── app/
+│   │   │   ├── routes/                   # Endpoints REST
+│   │   │   ├── models/                   # Schémas et ORM
+│   │   │   ├── database.py
+│   │   │   └── main.py
+│   │   ├── requirements.txt
+│   │   ├── Dockerfile
+│   │   └── README.md
+│   │
+│   ├── api_ia/                           # API IA (prédiction)
+│   │   ├── app/
+│   │   │   ├── routes/                   # Endpoint /predict
+│   │   │   ├── models/                   # Modèle ML, scaler, encoder
+│   │   │   ├── services/                 # Fonctions ML
+│   │   │   └── main.py
+│   │   ├── requirements.txt
+│   │   ├── Dockerfile
+│   │   └── README.md
+│   │
+│   ├── .env                              # Variables partagées
+│   └── docker-compose.yml                # Compose local backend (facultatif)
+│
+├── frontend/                             # Application Vue.js ou React
+│   ├── public/
+│   ├── src/
+│   │   ├── assets/                       # Images, icônes
+│   │   ├── components/                   # UI réutilisable
+│   │   ├── pages/                        # Pages de navigation
+│   │   ├── services/                     # Appels API (CRUD + IA)
+│   │   ├── i18n/                         # Traductions (fr, de, it)
+│   │   └── main.ts / main.js
+│   ├── Dockerfile
+│   └── vite.config.ts / vite.config.js
+│
+├── etl/                                  # Pipeline ETL (nettoyage, injection)
+│   ├── data/
+│   │   ├── raw/
+│   │   └── clean/
+│   ├── etl.py
+│   ├── requirements.txt
+│   ├── Dockerfile
+│   └── wait-for-db.sh
+│
+├── infra/                                # Déploiement multi-pays
+│   ├── env-fr/
+│   │   ├── docker-compose.yml            # Compose France 🇫🇷
+│   │   └── .env
+│   ├── env-us/
+│   │   ├── docker-compose.yml            # Compose États-Unis 🇺🇸
+│   │   └── .env
+│   ├── env-ch/
+│   │   ├── docker-compose.yml            # Compose Suisse 🇨🇭
+│   │   └── .env
+│   ├── db/
+│   │   └── init.sql                      # Init manuelle base de données
+│   ├── nginx/
+│   │   ├── fr.conf
+│   │   ├── us.conf
+│   │   └── ch.conf
+│   ├── traefik/                          # (optionnel) proxy dynamique
+│   └── k8s/                               # (bonus) YAML Kubernetes
+│
+├── ci-cd/                                 # Intégration continue
+│   ├── github-actions/
+│   │   ├── backend.yml
+│   │   ├── frontend.yml
+│   ├── jenkins/
+│   │   └── Jenkinsfile
+│   └── sonar-project.properties
+│
+├── docs/                                  # Documentation complète
+│   ├── README.md
+│   ├── architecture.md
+│   ├── pipeline.md
+│   ├── deploy-guide.md
+│   ├── accessibilite.md
+│   ├── security.md
+│   └── changelog.md
+│
+├── scripts/                               # Utilitaires shell
+│   ├── backup.sh
+│   ├── restore.sh
+│   └── setup_env.sh
+│
+├── .env.example
+├── .gitignore
+└── LICENSE

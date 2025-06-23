@@ -1,0 +1,47 @@
+/* main.css */
+
+/* Définir des styles de base */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+}
+
+/* Styles pour les éléments */
+h1, h2, h3 {
+  font-weight: 600;
+  color: #333;
+}
+
+/* Mise en page responsive */
+.container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+@media (min-width: 600px) {
+  .container {
+    width: 80%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    width: 70%;
+  }
+}
+
+/* Autres styles personnalisés pour les boutons, les cartes, etc. */
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}

@@ -1,0 +1,3280 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.17
+-- Dumped by pg_dump version 14.17
+
+-- Started on 2025-06-06 22:39:37
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 224 (class 1259 OID 16443)
+-- Name: mortalite; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.mortalite (
+    id integer NOT NULL,
+    id_pays integer,
+    annee integer,
+    valeur integer,
+    id_unite integer
+);
+
+
+ALTER TABLE public.mortalite OWNER TO postgres;
+
+--
+-- TOC entry 223 (class 1259 OID 16442)
+-- Name: mortalite_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.mortalite_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.mortalite_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3419 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: mortalite_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.mortalite_id_seq OWNED BY public.mortalite.id;
+
+
+--
+-- TOC entry 214 (class 1259 OID 16396)
+-- Name: pays; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.pays (
+    id_pays integer NOT NULL,
+    nom_pays character varying(100) NOT NULL,
+    region character varying(100),
+    sous_region character varying(100)
+);
+
+
+ALTER TABLE public.pays OWNER TO postgres;
+
+--
+-- TOC entry 213 (class 1259 OID 16395)
+-- Name: pays_id_pays_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.pays_id_pays_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.pays_id_pays_seq OWNER TO postgres;
+
+--
+-- TOC entry 3420 (class 0 OID 0)
+-- Dependencies: 213
+-- Name: pays_id_pays_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.pays_id_pays_seq OWNED BY public.pays.id_pays;
+
+
+--
+-- TOC entry 222 (class 1259 OID 16424)
+-- Name: population_hiv; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.population_hiv (
+    id integer NOT NULL,
+    id_pays integer,
+    annee integer,
+    valeur integer,
+    id_unite integer
+);
+
+
+ALTER TABLE public.population_hiv OWNER TO postgres;
+
+--
+-- TOC entry 221 (class 1259 OID 16423)
+-- Name: population_hiv_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.population_hiv_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.population_hiv_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3421 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: population_hiv_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.population_hiv_id_seq OWNED BY public.population_hiv.id;
+
+
+--
+-- TOC entry 230 (class 1259 OID 16505)
+-- Name: statistique; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.statistique (
+    id integer NOT NULL,
+    id_pays integer,
+    annee integer,
+    valeur integer,
+    id_unite integer,
+    id_type_statistique integer
+);
+
+
+ALTER TABLE public.statistique OWNER TO postgres;
+
+--
+-- TOC entry 229 (class 1259 OID 16504)
+-- Name: statistique_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.statistique_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.statistique_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3422 (class 0 OID 0)
+-- Dependencies: 229
+-- Name: statistique_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.statistique_id_seq OWNED BY public.statistique.id;
+
+
+--
+-- TOC entry 228 (class 1259 OID 16481)
+-- Name: traitement; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.traitement (
+    id integer NOT NULL,
+    id_pays integer,
+    valeur integer,
+    id_unite integer,
+    id_type_traitement integer
+);
+
+
+ALTER TABLE public.traitement OWNER TO postgres;
+
+--
+-- TOC entry 227 (class 1259 OID 16480)
+-- Name: traitement_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.traitement_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.traitement_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3423 (class 0 OID 0)
+-- Dependencies: 227
+-- Name: traitement_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.traitement_id_seq OWNED BY public.traitement.id;
+
+
+--
+-- TOC entry 226 (class 1259 OID 16462)
+-- Name: transmission_mere_enfant; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.transmission_mere_enfant (
+    id integer NOT NULL,
+    id_pays integer,
+    besoin_arv_min integer,
+    besoin_arv_median integer,
+    besoin_arv_max integer,
+    pourcentage_recu_min integer,
+    pourcentage_recu_median integer,
+    pourcentage_recu_max integer,
+    id_unite integer
+);
+
+
+ALTER TABLE public.transmission_mere_enfant OWNER TO postgres;
+
+--
+-- TOC entry 225 (class 1259 OID 16461)
+-- Name: transmission_mere_enfant_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.transmission_mere_enfant_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.transmission_mere_enfant_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3424 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: transmission_mere_enfant_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.transmission_mere_enfant_id_seq OWNED BY public.transmission_mere_enfant.id;
+
+
+--
+-- TOC entry 218 (class 1259 OID 16410)
+-- Name: type_statistique; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.type_statistique (
+    id_type_statistique integer NOT NULL,
+    nom_type_statistique character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.type_statistique OWNER TO postgres;
+
+--
+-- TOC entry 217 (class 1259 OID 16409)
+-- Name: type_statistique_id_type_statistique_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.type_statistique_id_type_statistique_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.type_statistique_id_type_statistique_seq OWNER TO postgres;
+
+--
+-- TOC entry 3425 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: type_statistique_id_type_statistique_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.type_statistique_id_type_statistique_seq OWNED BY public.type_statistique.id_type_statistique;
+
+
+--
+-- TOC entry 220 (class 1259 OID 16417)
+-- Name: type_traitement; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.type_traitement (
+    id_type_traitement integer NOT NULL,
+    nom_type_traitement character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.type_traitement OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 16416)
+-- Name: type_traitement_id_type_traitement_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.type_traitement_id_type_traitement_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.type_traitement_id_type_traitement_seq OWNER TO postgres;
+
+--
+-- TOC entry 3426 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: type_traitement_id_type_traitement_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.type_traitement_id_type_traitement_seq OWNED BY public.type_traitement.id_type_traitement;
+
+
+--
+-- TOC entry 216 (class 1259 OID 16403)
+-- Name: unite; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.unite (
+    id_unite integer NOT NULL,
+    nom_unite character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public.unite OWNER TO postgres;
+
+--
+-- TOC entry 215 (class 1259 OID 16402)
+-- Name: unite_id_unite_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.unite_id_unite_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.unite_id_unite_seq OWNER TO postgres;
+
+--
+-- TOC entry 3427 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: unite_id_unite_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.unite_id_unite_seq OWNED BY public.unite.id_unite;
+
+
+--
+-- TOC entry 3213 (class 2604 OID 16446)
+-- Name: mortalite id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.mortalite ALTER COLUMN id SET DEFAULT nextval('public.mortalite_id_seq'::regclass);
+
+
+--
+-- TOC entry 3208 (class 2604 OID 16399)
+-- Name: pays id_pays; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pays ALTER COLUMN id_pays SET DEFAULT nextval('public.pays_id_pays_seq'::regclass);
+
+
+--
+-- TOC entry 3212 (class 2604 OID 16427)
+-- Name: population_hiv id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.population_hiv ALTER COLUMN id SET DEFAULT nextval('public.population_hiv_id_seq'::regclass);
+
+
+--
+-- TOC entry 3216 (class 2604 OID 16508)
+-- Name: statistique id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.statistique ALTER COLUMN id SET DEFAULT nextval('public.statistique_id_seq'::regclass);
+
+
+--
+-- TOC entry 3215 (class 2604 OID 16484)
+-- Name: traitement id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.traitement ALTER COLUMN id SET DEFAULT nextval('public.traitement_id_seq'::regclass);
+
+
+--
+-- TOC entry 3214 (class 2604 OID 16465)
+-- Name: transmission_mere_enfant id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.transmission_mere_enfant ALTER COLUMN id SET DEFAULT nextval('public.transmission_mere_enfant_id_seq'::regclass);
+
+
+--
+-- TOC entry 3210 (class 2604 OID 16413)
+-- Name: type_statistique id_type_statistique; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.type_statistique ALTER COLUMN id_type_statistique SET DEFAULT nextval('public.type_statistique_id_type_statistique_seq'::regclass);
+
+
+--
+-- TOC entry 3211 (class 2604 OID 16420)
+-- Name: type_traitement id_type_traitement; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.type_traitement ALTER COLUMN id_type_traitement SET DEFAULT nextval('public.type_traitement_id_type_traitement_seq'::regclass);
+
+
+--
+-- TOC entry 3209 (class 2604 OID 16406)
+-- Name: unite id_unite; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.unite ALTER COLUMN id_unite SET DEFAULT nextval('public.unite_id_unite_seq'::regclass);
+
+
+--
+-- TOC entry 3407 (class 0 OID 16443)
+-- Dependencies: 224
+-- Data for Name: mortalite; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.mortalite (id, id_pays, annee, valeur, id_unite) FROM stdin;
+1	1	2018	500	\N
+2	3	2018	200	\N
+3	4	2018	14000	\N
+4	5	2018	1700	\N
+5	6	2018	200	\N
+6	7	2018	200	\N
+7	10	2018	200	\N
+8	12	2018	580	\N
+9	13	2018	100	\N
+10	14	2018	500	\N
+11	16	2018	200	\N
+12	17	2018	2200	\N
+13	18	2018	100	\N
+14	19	2018	670	\N
+15	20	2018	100	\N
+16	21	2018	4800	\N
+17	22	2018	15000	\N
+18	24	2018	100	\N
+19	25	2018	3300	\N
+20	26	2018	1900	\N
+21	27	2018	100	\N
+22	28	2018	1300	\N
+23	29	2018	18000	\N
+24	31	2018	4800	\N
+25	32	2018	3100	\N
+26	33	2018	590	\N
+27	36	2018	100	\N
+28	37	2018	4000	\N
+29	38	2018	500	\N
+30	39	2018	16000	\N
+31	40	2018	100	\N
+32	41	2018	500	\N
+33	43	2018	100	\N
+34	45	2018	13000	\N
+35	46	2018	100	\N
+36	47	2018	500	\N
+37	48	2018	1200	\N
+38	49	2018	620	\N
+39	50	2018	500	\N
+40	51	2018	700	\N
+41	52	2018	1800	\N
+42	53	2018	500	\N
+43	54	2018	100	\N
+44	55	2018	2400	\N
+45	56	2018	11000	\N
+46	58	2018	100	\N
+47	59	2018	500	\N
+48	60	2018	1200	\N
+49	61	2018	980	\N
+50	62	2018	500	\N
+51	63	2018	500	\N
+52	64	2018	14000	\N
+53	66	2018	2200	\N
+54	67	2018	4300	\N
+55	68	2018	1800	\N
+56	69	2018	200	\N
+57	70	2018	2700	\N
+58	71	2018	780	\N
+59	72	2018	100	\N
+60	73	2018	100	\N
+61	75	2018	38000	\N
+62	76	2018	2600	\N
+63	77	2018	100	\N
+64	78	2018	100	\N
+65	79	2018	710	\N
+66	80	2018	1500	\N
+67	82	2018	100	\N
+68	83	2018	500	\N
+69	84	2018	25000	\N
+70	85	2018	100	\N
+71	86	2018	200	\N
+72	87	2018	500	\N
+73	88	2018	100	\N
+74	89	2018	100	\N
+75	90	2018	6100	\N
+76	91	2018	1800	\N
+77	92	2018	200	\N
+78	94	2018	100	\N
+79	95	2018	1700	\N
+80	96	2018	13000	\N
+81	97	2018	2600	\N
+82	99	2018	6500	\N
+83	101	2018	500	\N
+84	102	2018	610	\N
+85	104	2018	100	\N
+86	105	2018	100	\N
+87	106	2018	500	\N
+88	107	2018	54000	\N
+89	108	2018	7800	\N
+90	109	2018	2700	\N
+91	110	2018	910	\N
+92	112	2018	100	\N
+93	113	2018	200	\N
+94	114	2018	1200	\N
+95	115	2018	53000	\N
+96	116	2018	100	\N
+97	117	2018	100	\N
+98	118	2018	6400	\N
+99	119	2018	500	\N
+100	121	2018	720	\N
+101	122	2018	1000	\N
+102	123	2018	1200	\N
+103	125	2018	500	\N
+104	128	2018	570	\N
+105	129	2018	100	\N
+106	130	2018	200	\N
+107	132	2018	2900	\N
+108	134	2018	1300	\N
+109	135	2018	100	\N
+110	136	2018	2100	\N
+111	137	2018	100	\N
+112	138	2018	100	\N
+113	139	2018	100	\N
+114	140	2018	710	\N
+115	141	2018	71000	\N
+116	142	2018	9900	\N
+117	144	2018	200	\N
+118	145	2018	2900	\N
+119	146	2018	100	\N
+120	149	2018	100	\N
+121	150	2018	500	\N
+122	151	2018	18000	\N
+123	153	2018	3800	\N
+124	155	2018	100	\N
+125	158	2018	23000	\N
+126	159	2018	6100	\N
+127	162	2018	24000	\N
+128	164	2018	200	\N
+129	165	2018	1300	\N
+130	167	2018	4700	\N
+131	168	2018	500	\N
+132	169	2018	17000	\N
+133	170	2018	22000	\N
+134	1	2010	500	\N
+135	3	2010	200	\N
+136	4	2010	10000	\N
+137	5	2010	1600	\N
+138	6	2010	200	\N
+139	7	2010	500	\N
+140	10	2010	200	\N
+141	12	2010	500	\N
+142	13	2010	100	\N
+143	14	2010	200	\N
+144	16	2010	200	\N
+145	17	2010	2000	\N
+146	18	2010	100	\N
+147	19	2010	1600	\N
+148	20	2010	100	\N
+149	21	2010	7300	\N
+150	22	2010	15000	\N
+151	24	2010	100	\N
+152	25	2010	4800	\N
+153	26	2010	5200	\N
+154	27	2010	100	\N
+155	28	2010	2500	\N
+156	29	2010	22000	\N
+157	31	2010	7800	\N
+158	32	2010	3500	\N
+159	36	2010	100	\N
+160	37	2010	3900	\N
+161	38	2010	500	\N
+162	39	2010	24000	\N
+163	40	2010	100	\N
+164	41	2010	500	\N
+165	43	2010	100	\N
+166	45	2010	34000	\N
+167	46	2010	100	\N
+168	47	2010	630	\N
+169	48	2010	3000	\N
+170	49	2010	1100	\N
+171	50	2010	200	\N
+172	51	2010	500	\N
+173	52	2010	1400	\N
+174	53	2010	620	\N
+175	54	2010	200	\N
+176	55	2010	3800	\N
+177	56	2010	20000	\N
+178	58	2010	100	\N
+179	59	2010	600	\N
+180	60	2010	1600	\N
+181	61	2010	970	\N
+182	62	2010	100	\N
+183	63	2010	500	\N
+184	64	2010	17000	\N
+185	66	2010	1700	\N
+186	67	2010	4100	\N
+187	68	2010	1900	\N
+188	69	2010	100	\N
+189	70	2010	4900	\N
+190	71	2010	1400	\N
+191	72	2010	100	\N
+192	73	2010	100	\N
+193	75	2010	24000	\N
+194	76	2010	2400	\N
+195	77	2010	100	\N
+196	78	2010	100	\N
+197	79	2010	830	\N
+198	80	2010	1800	\N
+199	82	2010	100	\N
+200	83	2010	500	\N
+201	84	2010	56000	\N
+202	85	2010	100	\N
+203	86	2010	200	\N
+204	87	2010	500	\N
+205	88	2010	200	\N
+206	89	2010	100	\N
+207	90	2010	7200	\N
+208	91	2010	2700	\N
+209	92	2010	100	\N
+210	94	2010	100	\N
+211	95	2010	1400	\N
+212	96	2010	29000	\N
+213	97	2010	2900	\N
+214	99	2010	5300	\N
+215	101	2010	500	\N
+216	102	2010	500	\N
+217	104	2010	100	\N
+218	105	2010	100	\N
+219	106	2010	550	\N
+220	107	2010	64000	\N
+221	108	2010	11000	\N
+222	109	2010	3500	\N
+223	110	2010	1400	\N
+224	111	2010	200	\N
+225	112	2010	100	\N
+226	113	2010	500	\N
+227	114	2010	1700	\N
+228	115	2010	72000	\N
+229	116	2010	100	\N
+230	117	2010	100	\N
+231	118	2010	1400	\N
+232	119	2010	500	\N
+233	121	2010	790	\N
+234	122	2010	2100	\N
+235	123	2010	500	\N
+236	125	2010	930	\N
+237	128	2010	740	\N
+238	129	2010	100	\N
+239	130	2010	200	\N
+240	132	2010	5700	\N
+241	134	2010	1300	\N
+242	135	2010	100	\N
+243	136	2010	2900	\N
+244	137	2010	100	\N
+245	138	2010	100	\N
+246	139	2010	100	\N
+247	140	2010	1400	\N
+248	141	2010	140000	\N
+249	142	2010	9800	\N
+250	143	2010	1300	\N
+251	144	2010	500	\N
+252	145	2010	1900	\N
+253	146	2010	200	\N
+254	149	2010	100	\N
+255	150	2010	500	\N
+256	151	2010	27000	\N
+257	153	2010	5700	\N
+258	155	2010	100	\N
+259	158	2010	56000	\N
+260	159	2010	12000	\N
+261	162	2010	48000	\N
+262	164	2010	500	\N
+263	165	2010	1800	\N
+264	167	2010	8500	\N
+265	168	2010	200	\N
+266	169	2010	26000	\N
+267	170	2010	54000	\N
+268	1	2000	100	\N
+269	3	2000	100	\N
+270	4	2000	4800	\N
+271	5	2000	1400	\N
+272	6	2000	100	\N
+273	7	2000	500	\N
+274	10	2000	500	\N
+275	12	2000	100	\N
+276	13	2000	100	\N
+277	14	2000	100	\N
+278	16	2000	100	\N
+279	17	2000	2400	\N
+280	18	2000	100	\N
+281	19	2000	670	\N
+282	20	2000	100	\N
+283	21	2000	15000	\N
+284	22	2000	15000	\N
+285	24	2000	100	\N
+286	25	2000	12000	\N
+287	26	2000	11000	\N
+288	27	2000	200	\N
+289	28	2000	4500	\N
+290	29	2000	19000	\N
+291	31	2000	11000	\N
+292	32	2000	5600	\N
+293	36	2000	100	\N
+294	37	2000	6100	\N
+295	38	2000	500	\N
+296	39	2000	44000	\N
+297	40	2000	100	\N
+298	41	2000	200	\N
+299	43	2000	100	\N
+300	45	2000	43000	\N
+301	46	2000	100	\N
+302	47	2000	500	\N
+303	48	2000	4800	\N
+304	49	2000	1500	\N
+305	50	2000	100	\N
+306	51	2000	810	\N
+307	52	2000	680	\N
+308	53	2000	1100	\N
+309	54	2000	100	\N
+310	55	2000	5000	\N
+311	56	2000	58000	\N
+312	58	2000	100	\N
+313	59	2000	880	\N
+314	60	2000	1600	\N
+315	61	2000	500	\N
+316	62	2000	100	\N
+317	63	2000	880	\N
+318	64	2000	18000	\N
+319	66	2000	2400	\N
+320	67	2000	5000	\N
+321	68	2000	1100	\N
+322	69	2000	100	\N
+323	70	2000	12000	\N
+324	71	2000	3200	\N
+325	72	2000	100	\N
+326	73	2000	100	\N
+327	75	2000	1900	\N
+328	76	2000	500	\N
+329	77	2000	100	\N
+330	78	2000	100	\N
+331	79	2000	1200	\N
+332	80	2000	2400	\N
+333	82	2000	100	\N
+334	83	2000	100	\N
+335	84	2000	120000	\N
+336	85	2000	100	\N
+337	86	2000	100	\N
+338	87	2000	100	\N
+339	88	2000	100	\N
+340	89	2000	100	\N
+341	90	2000	12000	\N
+342	91	2000	3000	\N
+343	92	2000	100	\N
+344	94	2000	100	\N
+345	95	2000	500	\N
+346	96	2000	57000	\N
+347	97	2000	2700	\N
+348	99	2000	7700	\N
+349	101	2000	500	\N
+350	102	2000	100	\N
+351	104	2000	100	\N
+352	105	2000	100	\N
+353	106	2000	500	\N
+354	107	2000	40000	\N
+355	108	2000	5800	\N
+356	109	2000	7300	\N
+357	110	2000	500	\N
+358	111	2000	200	\N
+359	112	2000	100	\N
+360	113	2000	100	\N
+361	114	2000	2300	\N
+362	115	2000	78000	\N
+363	116	2000	100	\N
+364	117	2000	100	\N
+365	118	2000	100	\N
+366	119	2000	500	\N
+367	121	2000	500	\N
+368	122	2000	5100	\N
+369	123	2000	100	\N
+370	125	2000	1100	\N
+371	128	2000	500	\N
+372	129	2000	100	\N
+373	130	2000	500	\N
+374	132	2000	18000	\N
+375	134	2000	1700	\N
+376	135	2000	200	\N
+377	136	2000	2400	\N
+378	138	2000	100	\N
+379	139	2000	100	\N
+380	140	2000	810	\N
+381	141	2000	100000	\N
+382	142	2000	5100	\N
+383	143	2000	1800	\N
+384	144	2000	100	\N
+385	145	2000	650	\N
+386	146	2000	200	\N
+387	149	2000	100	\N
+388	150	2000	100	\N
+389	151	2000	54000	\N
+390	153	2000	5600	\N
+391	155	2000	100	\N
+392	158	2000	85000	\N
+393	159	2000	4500	\N
+394	162	2000	80000	\N
+395	164	2000	500	\N
+396	165	2000	840	\N
+397	167	2000	6100	\N
+398	168	2000	100	\N
+399	169	2000	62000	\N
+400	170	2000	120000	\N
+\.
+
+
+--
+-- TOC entry 3397 (class 0 OID 16396)
+-- Dependencies: 214
+-- Data for Name: pays; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.pays (id_pays, nom_pays, region, sous_region) FROM stdin;
+1	afghanistan	eastern mediterranean	\N
+2	albania	europe	\N
+3	algeria	africa	\N
+4	angola	africa	\N
+5	argentina	americas	\N
+6	armenia	europe	\N
+7	australia	western pacific	\N
+8	austria	europe	\N
+9	azerbaijan	europe	\N
+10	bahamas	americas	\N
+11	bahrain	eastern mediterranean	\N
+12	bangladesh	south-east asia	\N
+13	barbados	americas	\N
+14	belarus	europe	\N
+15	belgium	europe	\N
+16	belize	americas	\N
+17	benin	africa	\N
+18	bhutan	south-east asia	\N
+19	bolivia (plurinational state of)	americas	\N
+20	bosnia and herzegovina	europe	\N
+21	botswana	africa	\N
+22	brazil	americas	\N
+23	brunei darussalam	western pacific	\N
+24	bulgaria	europe	\N
+25	burkina faso	africa	\N
+26	burundi	africa	\N
+27	cabo verde	africa	\N
+28	cambodia	western pacific	\N
+29	cameroon	africa	\N
+30	canada	americas	\N
+31	central african republic	africa	\N
+32	chad	africa	\N
+33	chile	americas	\N
+34	china	western pacific	\N
+35	colombia	americas	\N
+36	comoros	africa	\N
+37	congo	americas	\N
+38	costa rica	americas	\N
+39	côte d'ivoire	africa	\N
+40	croatia	europe	\N
+41	cuba	americas	\N
+42	cyprus	europe	\N
+43	czechia	europe	\N
+44	democratic people's republic of korea	western pacific	\N
+45	democratic republic of the congo	africa	\N
+46	denmark	europe	\N
+47	djibouti	eastern mediterranean	\N
+48	dominican republic	americas	\N
+49	ecuador	americas	\N
+50	egypt	eastern mediterranean	\N
+51	el salvador	americas	\N
+52	equatorial guinea	africa	\N
+53	eritrea	africa	\N
+54	estonia	europe	\N
+55	eswatini	africa	\N
+56	ethiopia	africa	\N
+57	fiji	western pacific	\N
+58	finland	europe	\N
+59	france	europe	\N
+60	gabon	africa	\N
+61	gambia	africa	\N
+62	georgia	europe	\N
+63	germany	europe	\N
+64	ghana	africa	\N
+65	greece	europe	\N
+66	guatemala	americas	\N
+67	guinea	africa	\N
+68	guinea-bissau	africa	\N
+69	guyana	americas	\N
+70	haiti	americas	\N
+71	honduras	americas	\N
+72	hungary	europe	\N
+73	iceland	europe	\N
+74	india	south-east asia	\N
+75	indonesia	south-east asia	\N
+76	iran (islamic republic of)	eastern mediterranean	\N
+77	ireland	europe	\N
+78	israel	europe	\N
+79	italy	europe	\N
+80	jamaica	americas	\N
+81	japan	western pacific	\N
+82	jordan	eastern mediterranean	\N
+83	kazakhstan	europe	\N
+84	kenya	africa	\N
+85	kuwait	eastern mediterranean	\N
+86	kyrgyzstan	europe	\N
+87	lao people's democratic republic	western pacific	\N
+88	latvia	europe	\N
+89	lebanon	eastern mediterranean	\N
+90	lesotho	africa	\N
+91	liberia	africa	\N
+92	libya	eastern mediterranean	\N
+93	lithuania	europe	\N
+94	luxembourg	europe	\N
+95	madagascar	africa	\N
+96	malawi	africa	\N
+97	malaysia	western pacific	\N
+98	maldives	south-east asia	\N
+99	mali	africa	\N
+100	malta	europe	\N
+101	mauritania	africa	\N
+102	mauritius	africa	\N
+103	mexico	americas	\N
+104	mongolia	western pacific	\N
+105	montenegro	europe	\N
+106	morocco	eastern mediterranean	\N
+107	mozambique	africa	\N
+108	myanmar	south-east asia	\N
+109	namibia	africa	\N
+110	nepal	south-east asia	\N
+111	netherlands	europe	\N
+112	new zealand	western pacific	\N
+113	nicaragua	americas	\N
+114	niger	africa	\N
+115	nigeria	africa	\N
+116	norway	europe	\N
+117	oman	eastern mediterranean	\N
+118	pakistan	eastern mediterranean	\N
+119	panama	americas	\N
+120	papua new guinea	western pacific	\N
+121	paraguay	americas	\N
+122	peru	americas	\N
+123	philippines	western pacific	\N
+124	poland	europe	\N
+125	portugal	europe	\N
+126	qatar	eastern mediterranean	\N
+127	republic of korea	western pacific	\N
+128	republic of moldova	europe	\N
+129	republic of north macedonia	europe	\N
+130	romania	europe	\N
+131	russian federation	europe	\N
+132	rwanda	africa	\N
+133	saudi arabia	eastern mediterranean	\N
+134	senegal	africa	\N
+135	serbia	europe	\N
+136	sierra leone	africa	\N
+137	singapore	western pacific	\N
+138	slovakia	europe	\N
+139	slovenia	europe	\N
+140	somalia	eastern mediterranean	\N
+141	south africa	africa	\N
+142	south sudan	africa	\N
+143	spain	europe	\N
+144	sri lanka	south-east asia	\N
+145	sudan	eastern mediterranean	\N
+146	suriname	americas	\N
+147	sweden	europe	\N
+148	switzerland	europe	\N
+149	syrian arab republic	eastern mediterranean	\N
+150	tajikistan	europe	\N
+151	thailand	south-east asia	\N
+152	timor-leste	south-east asia	\N
+153	togo	africa	\N
+154	trinidad and tobago	americas	\N
+155	tunisia	eastern mediterranean	\N
+156	turkey	europe	\N
+157	turkmenistan	europe	\N
+158	uganda	africa	\N
+159	ukraine	europe	\N
+160	united arab emirates	eastern mediterranean	\N
+161	united kingdom of great britain and northern ireland	europe	\N
+162	united republic of tanzania	africa	\N
+163	united states of america	americas	\N
+164	uruguay	americas	\N
+165	uzbekistan	europe	\N
+166	venezuela (bolivarian republic of)	americas	\N
+167	viet nam	western pacific	\N
+168	yemen	eastern mediterranean	\N
+169	zambia	africa	\N
+170	zimbabwe	africa	\N
+\.
+
+
+--
+-- TOC entry 3405 (class 0 OID 16424)
+-- Dependencies: 222
+-- Data for Name: population_hiv; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.population_hiv (id, id_pays, annee, valeur, id_unite) FROM stdin;
+1	1	2018	7200	\N
+2	3	2018	16000	\N
+3	4	2018	330000	\N
+4	5	2018	140000	\N
+5	6	2018	3500	\N
+6	7	2018	28000	\N
+7	10	2018	6000	\N
+8	12	2018	14000	\N
+9	13	2018	3000	\N
+10	14	2018	27000	\N
+11	16	2018	4900	\N
+12	17	2018	73000	\N
+13	18	2018	1300	\N
+14	19	2018	22000	\N
+15	20	2018	500	\N
+16	21	2018	370000	\N
+17	22	2018	900000	\N
+18	24	2018	3500	\N
+19	25	2018	96000	\N
+20	26	2018	82000	\N
+21	27	2018	2400	\N
+22	28	2018	73000	\N
+23	29	2018	540000	\N
+24	31	2018	110000	\N
+25	32	2018	120000	\N
+26	33	2018	71000	\N
+27	35	2018	160000	\N
+28	36	2018	200	\N
+29	37	2018	89000	\N
+30	38	2018	15000	\N
+31	39	2018	460000	\N
+32	40	2018	1600	\N
+33	41	2018	31000	\N
+34	43	2018	4400	\N
+35	45	2018	450000	\N
+36	46	2018	6200	\N
+37	47	2018	8800	\N
+38	48	2018	70000	\N
+39	49	2018	44000	\N
+40	50	2018	22000	\N
+41	51	2018	25000	\N
+42	52	2018	62000	\N
+43	53	2018	18000	\N
+44	54	2018	7400	\N
+45	55	2018	210000	\N
+46	56	2018	690000	\N
+47	58	2018	4000	\N
+48	59	2018	180000	\N
+49	60	2018	53000	\N
+50	61	2018	26000	\N
+51	62	2018	9400	\N
+52	63	2018	87000	\N
+53	64	2018	330000	\N
+54	66	2018	47000	\N
+55	67	2018	120000	\N
+56	68	2018	44000	\N
+57	69	2018	8200	\N
+58	70	2018	160000	\N
+59	71	2018	23000	\N
+60	72	2018	3700	\N
+61	73	2018	500	\N
+62	75	2018	640000	\N
+63	76	2018	61000	\N
+64	77	2018	7200	\N
+65	78	2018	9000	\N
+66	79	2018	130000	\N
+67	80	2018	40000	\N
+68	81	2018	30000	\N
+69	82	2018	500	\N
+70	83	2018	26000	\N
+71	84	2018	1600000	\N
+72	85	2018	640	\N
+73	86	2018	8500	\N
+74	87	2018	12000	\N
+75	88	2018	5300	\N
+76	89	2018	2500	\N
+77	90	2018	340000	\N
+78	91	2018	39000	\N
+79	92	2018	9200	\N
+80	94	2018	1200	\N
+81	95	2018	39000	\N
+82	96	2018	1000000	\N
+83	97	2018	87000	\N
+84	99	2018	150000	\N
+85	101	2018	5600	\N
+86	102	2018	13000	\N
+87	103	2018	230000	\N
+88	104	2018	600	\N
+89	105	2018	500	\N
+90	106	2018	21000	\N
+91	107	2018	2200000	\N
+92	108	2018	240000	\N
+93	109	2018	200000	\N
+94	110	2018	30000	\N
+95	112	2018	3600	\N
+96	113	2018	9400	\N
+97	114	2018	36000	\N
+98	115	2018	1900000	\N
+99	116	2018	5800	\N
+100	117	2018	3200	\N
+101	118	2018	160000	\N
+102	119	2018	26000	\N
+103	120	2018	45000	\N
+104	121	2018	21000	\N
+105	122	2018	79000	\N
+106	123	2018	77000	\N
+107	125	2018	41000	\N
+108	128	2018	17000	\N
+109	129	2018	500	\N
+110	130	2018	18000	\N
+111	132	2018	220000	\N
+112	134	2018	42000	\N
+113	135	2018	3000	\N
+114	136	2018	70000	\N
+115	137	2018	7900	\N
+116	138	2018	1200	\N
+117	140	2018	11000	\N
+118	141	2018	7700000	\N
+119	142	2018	190000	\N
+120	143	2018	150000	\N
+121	144	2018	3500	\N
+122	145	2018	59000	\N
+123	146	2018	5600	\N
+124	149	2018	660	\N
+125	150	2018	13000	\N
+126	151	2018	480000	\N
+127	153	2018	110000	\N
+128	155	2018	2800	\N
+129	158	2018	1400000	\N
+130	159	2018	240000	\N
+131	162	2018	1600000	\N
+132	164	2018	14000	\N
+133	165	2018	52000	\N
+134	166	2018	120000	\N
+135	167	2018	230000	\N
+136	168	2018	11000	\N
+137	169	2018	1200000	\N
+138	170	2018	1300000	\N
+139	1	2010	4200	\N
+140	3	2010	7100	\N
+141	4	2010	220000	\N
+142	5	2010	110000	\N
+143	6	2010	3300	\N
+144	7	2010	21000	\N
+145	10	2010	5800	\N
+146	12	2010	7700	\N
+147	13	2010	2300	\N
+148	14	2010	12000	\N
+149	16	2010	3700	\N
+150	17	2010	61000	\N
+151	18	2010	1300	\N
+152	19	2010	23000	\N
+153	20	2010	200	\N
+154	21	2010	340000	\N
+155	22	2010	670000	\N
+156	24	2010	1700	\N
+157	25	2010	110000	\N
+158	26	2010	93000	\N
+159	27	2010	2100	\N
+160	28	2010	79000	\N
+161	29	2010	520000	\N
+162	31	2010	140000	\N
+163	32	2010	99000	\N
+164	33	2010	39000	\N
+165	35	2010	130000	\N
+166	36	2010	200	\N
+167	37	2010	82000	\N
+168	38	2010	9300	\N
+169	39	2010	480000	\N
+170	40	2010	1000	\N
+171	41	2010	17000	\N
+172	43	2010	1800	\N
+173	45	2010	480000	\N
+174	46	2010	5500	\N
+175	47	2010	9400	\N
+176	48	2010	72000	\N
+177	49	2010	34000	\N
+178	50	2010	6800	\N
+179	51	2010	26000	\N
+180	52	2010	35000	\N
+181	53	2010	17000	\N
+182	54	2010	6000	\N
+183	55	2010	160000	\N
+184	56	2010	630000	\N
+185	58	2010	2700	\N
+186	59	2010	140000	\N
+187	60	2010	43000	\N
+188	61	2010	18000	\N
+189	62	2010	5600	\N
+190	63	2010	69000	\N
+191	64	2010	300000	\N
+192	66	2010	49000	\N
+193	67	2010	100000	\N
+194	68	2010	38000	\N
+195	69	2010	6700	\N
+196	70	2010	140000	\N
+197	71	2010	26000	\N
+198	72	2010	2000	\N
+199	73	2010	500	\N
+200	75	2010	510000	\N
+201	76	2010	50000	\N
+202	77	2010	4800	\N
+203	78	2010	6000	\N
+204	79	2010	110000	\N
+205	80	2010	37000	\N
+206	81	2010	19000	\N
+207	82	2010	200	\N
+208	83	2010	11000	\N
+209	84	2010	1500000	\N
+210	85	2010	500	\N
+211	86	2010	4100	\N
+212	87	2010	9900	\N
+213	88	2010	4000	\N
+214	89	2010	1600	\N
+215	90	2010	300000	\N
+216	91	2010	41000	\N
+217	92	2010	6100	\N
+218	94	2010	700	\N
+219	95	2010	21000	\N
+220	96	2010	870000	\N
+221	97	2010	74000	\N
+222	99	2010	120000	\N
+223	101	2010	7100	\N
+224	102	2010	11000	\N
+225	103	2010	180000	\N
+226	104	2010	500	\N
+227	105	2010	200	\N
+228	106	2010	17000	\N
+229	107	2010	1600000	\N
+230	108	2010	220000	\N
+231	109	2010	170000	\N
+232	110	2010	31000	\N
+233	111	2010	20000	\N
+234	112	2010	2500	\N
+235	113	2010	7900	\N
+236	114	2010	37000	\N
+237	115	2010	1500000	\N
+238	116	2010	4200	\N
+239	117	2010	2200	\N
+240	118	2010	67000	\N
+241	119	2010	20000	\N
+242	120	2010	38000	\N
+243	121	2010	20000	\N
+244	122	2010	65000	\N
+245	123	2010	15000	\N
+246	125	2010	40000	\N
+247	128	2010	16000	\N
+248	129	2010	200	\N
+249	130	2010	14000	\N
+250	132	2010	220000	\N
+251	134	2010	44000	\N
+252	135	2010	1800	\N
+253	136	2010	58000	\N
+254	137	2010	6500	\N
+255	138	2010	500	\N
+256	140	2010	17000	\N
+257	141	2010	6100000	\N
+258	142	2010	140000	\N
+259	143	2010	140000	\N
+260	144	2010	4000	\N
+261	145	2010	43000	\N
+262	146	2010	4600	\N
+263	149	2010	570	\N
+264	150	2010	9200	\N
+265	151	2010	580000	\N
+266	153	2010	100000	\N
+267	155	2010	1400	\N
+268	158	2010	1200000	\N
+269	159	2010	230000	\N
+270	162	2010	1300000	\N
+271	163	2010	990000	\N
+272	164	2010	9600	\N
+273	165	2010	30000	\N
+274	167	2010	220000	\N
+275	168	2010	5100	\N
+276	169	2010	1000000	\N
+277	170	2010	1200000	\N
+278	1	2005	2900	\N
+279	3	2005	3700	\N
+280	4	2005	150000	\N
+281	5	2005	85000	\N
+282	6	2005	2700	\N
+283	7	2005	16000	\N
+284	10	2005	5100	\N
+285	12	2005	4000	\N
+286	13	2005	1700	\N
+287	14	2005	5400	\N
+288	16	2005	2800	\N
+289	17	2005	56000	\N
+290	18	2005	1100	\N
+291	19	2005	26000	\N
+292	20	2005	200	\N
+293	21	2005	310000	\N
+294	22	2005	550000	\N
+295	24	2005	980	\N
+296	25	2005	120000	\N
+297	26	2005	110000	\N
+298	27	2005	1800	\N
+299	28	2005	82000	\N
+300	29	2005	470000	\N
+301	31	2005	150000	\N
+302	32	2005	88000	\N
+303	33	2005	25000	\N
+304	35	2005	120000	\N
+305	36	2005	100	\N
+306	37	2005	77000	\N
+307	38	2005	6500	\N
+308	39	2005	510000	\N
+309	40	2005	710	\N
+310	41	2005	9000	\N
+311	43	2005	970	\N
+312	45	2005	510000	\N
+313	46	2005	4900	\N
+314	47	2005	11000	\N
+315	48	2005	79000	\N
+316	49	2005	29000	\N
+317	50	2005	3200	\N
+318	51	2005	23000	\N
+319	52	2005	22000	\N
+320	53	2005	17000	\N
+321	54	2005	5400	\N
+322	55	2005	130000	\N
+323	56	2005	640000	\N
+324	58	2005	1900	\N
+325	59	2005	110000	\N
+326	60	2005	35000	\N
+327	61	2005	15000	\N
+328	62	2005	2800	\N
+329	63	2005	56000	\N
+330	64	2005	280000	\N
+331	66	2005	48000	\N
+332	67	2005	93000	\N
+333	68	2005	31000	\N
+334	69	2005	5000	\N
+335	70	2005	140000	\N
+336	71	2005	31000	\N
+337	72	2005	1200	\N
+338	73	2005	200	\N
+339	75	2005	290000	\N
+340	76	2005	37000	\N
+341	77	2005	3200	\N
+342	78	2005	4100	\N
+343	79	2005	89000	\N
+344	80	2005	38000	\N
+345	81	2005	12000	\N
+346	82	2005	200	\N
+347	83	2005	4000	\N
+348	84	2005	1500000	\N
+349	85	2005	500	\N
+350	86	2005	1500	\N
+351	87	2005	6700	\N
+352	88	2005	3200	\N
+353	89	2005	1300	\N
+354	90	2005	280000	\N
+355	91	2005	41000	\N
+356	92	2005	2900	\N
+357	94	2005	500	\N
+358	95	2005	19000	\N
+359	96	2005	820000	\N
+360	97	2005	66000	\N
+361	99	2005	110000	\N
+362	101	2005	7500	\N
+363	102	2005	8000	\N
+364	103	2005	150000	\N
+365	104	2005	500	\N
+366	105	2005	100	\N
+367	106	2005	13000	\N
+368	107	2005	1200000	\N
+369	108	2005	210000	\N
+370	109	2005	160000	\N
+371	110	2005	29000	\N
+372	111	2005	16000	\N
+373	112	2005	1800	\N
+374	113	2005	6100	\N
+375	114	2005	40000	\N
+376	115	2005	1400000	\N
+377	116	2005	3000	\N
+378	117	2005	1700	\N
+379	118	2005	12000	\N
+380	119	2005	16000	\N
+381	120	2005	38000	\N
+382	121	2005	19000	\N
+383	122	2005	65000	\N
+384	123	2005	3700	\N
+385	125	2005	37000	\N
+386	128	2005	12000	\N
+387	129	2005	100	\N
+388	130	2005	11000	\N
+389	132	2005	220000	\N
+390	134	2005	42000	\N
+391	135	2005	1100	\N
+392	136	2005	51000	\N
+393	137	2005	4100	\N
+394	138	2005	500	\N
+395	140	2005	20000	\N
+396	141	2005	5000000	\N
+397	142	2005	120000	\N
+398	143	2005	120000	\N
+399	144	2005	3600	\N
+400	145	2005	29000	\N
+401	146	2005	4000	\N
+402	149	2005	500	\N
+403	150	2005	5200	\N
+404	151	2005	630000	\N
+405	153	2005	100000	\N
+406	155	2005	640	\N
+407	158	2005	1100000	\N
+408	159	2005	230000	\N
+409	162	2005	1200000	\N
+410	164	2005	7600	\N
+411	165	2005	21000	\N
+412	167	2005	180000	\N
+413	168	2005	2400	\N
+414	169	2005	920000	\N
+415	170	2005	1400000	\N
+416	1	2000	1600	\N
+417	3	2000	1900	\N
+418	4	2000	87000	\N
+419	5	2000	64000	\N
+420	6	2000	950	\N
+421	7	2000	13000	\N
+422	10	2000	5100	\N
+423	12	2000	940	\N
+424	13	2000	1100	\N
+425	14	2000	1400	\N
+426	16	2000	1700	\N
+427	17	2000	47000	\N
+428	18	2000	530	\N
+429	19	2000	21000	\N
+430	20	2000	100	\N
+431	21	2000	280000	\N
+432	22	2000	410000	\N
+433	24	2000	500	\N
+434	25	2000	140000	\N
+435	26	2000	130000	\N
+436	27	2000	1600	\N
+437	28	2000	81000	\N
+438	29	2000	370000	\N
+439	31	2000	160000	\N
+440	32	2000	80000	\N
+441	33	2000	14000	\N
+442	35	2000	110000	\N
+443	36	2000	100	\N
+444	37	2000	80000	\N
+445	38	2000	4300	\N
+446	39	2000	590000	\N
+447	40	2000	500	\N
+448	41	2000	4100	\N
+449	43	2000	510	\N
+450	45	2000	540000	\N
+451	46	2000	4000	\N
+452	47	2000	9400	\N
+453	48	2000	85000	\N
+454	49	2000	26000	\N
+455	50	2000	1500	\N
+456	51	2000	18000	\N
+457	52	2000	13000	\N
+458	53	2000	16000	\N
+459	54	2000	3400	\N
+460	55	2000	110000	\N
+461	56	2000	750000	\N
+462	58	2000	1100	\N
+463	59	2000	82000	\N
+464	60	2000	28000	\N
+465	61	2000	9900	\N
+466	62	2000	980	\N
+467	63	2000	45000	\N
+468	64	2000	270000	\N
+469	66	2000	44000	\N
+470	67	2000	83000	\N
+471	68	2000	22000	\N
+472	69	2000	2300	\N
+473	70	2000	150000	\N
+474	71	2000	40000	\N
+475	72	2000	830	\N
+476	73	2000	100	\N
+477	75	2000	80000	\N
+478	76	2000	16000	\N
+479	77	2000	1900	\N
+480	78	2000	2700	\N
+481	79	2000	68000	\N
+482	80	2000	41000	\N
+483	81	2000	6200	\N
+484	82	2000	100	\N
+485	83	2000	1100	\N
+486	84	2000	1700000	\N
+487	85	2000	200	\N
+488	86	2000	710	\N
+489	87	2000	2200	\N
+490	88	2000	2300	\N
+491	89	2000	910	\N
+492	90	2000	260000	\N
+493	91	2000	43000	\N
+494	92	2000	950	\N
+495	94	2000	500	\N
+496	95	2000	13000	\N
+497	96	2000	810000	\N
+498	97	2000	55000	\N
+499	99	2000	110000	\N
+500	101	2000	5500	\N
+501	102	2000	3200	\N
+502	103	2000	130000	\N
+503	104	2000	100	\N
+504	105	2000	100	\N
+505	106	2000	9700	\N
+506	107	2000	840000	\N
+507	108	2000	150000	\N
+508	109	2000	140000	\N
+509	110	2000	16000	\N
+510	111	2000	11000	\N
+511	112	2000	1300	\N
+512	113	2000	3600	\N
+513	114	2000	37000	\N
+514	115	2000	1300000	\N
+515	116	2000	1900	\N
+516	117	2000	1300	\N
+517	118	2000	500	\N
+518	119	2000	11000	\N
+519	120	2000	20000	\N
+520	121	2000	14000	\N
+521	122	2000	71000	\N
+522	123	2000	1000	\N
+523	125	2000	32000	\N
+524	128	2000	10000	\N
+525	129	2000	100	\N
+526	130	2000	7500	\N
+527	132	2000	240000	\N
+528	134	2000	33000	\N
+529	135	2000	1000	\N
+530	136	2000	40000	\N
+531	137	2000	2900	\N
+532	138	2000	200	\N
+533	140	2000	16000	\N
+534	141	2000	3300000	\N
+535	142	2000	90000	\N
+536	143	2000	92000	\N
+537	144	2000	2200	\N
+538	145	2000	15000	\N
+539	146	2000	3100	\N
+540	149	2000	500	\N
+541	150	2000	1400	\N
+542	151	2000	740000	\N
+543	153	2000	94000	\N
+544	155	2000	500	\N
+545	158	2000	1000000	\N
+546	159	2000	170000	\N
+547	162	2000	1100000	\N
+548	164	2000	6000	\N
+549	165	2000	14000	\N
+550	167	2000	120000	\N
+551	168	2000	1100	\N
+552	169	2000	890000	\N
+553	170	2000	1600000	\N
+\.
+
+
+--
+-- TOC entry 3413 (class 0 OID 16505)
+-- Dependencies: 230
+-- Data for Name: statistique; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.statistique (id, id_pays, annee, valeur, id_unite, id_type_statistique) FROM stdin;
+1	1	2018	7200	2	1
+2	3	2018	16000	2	1
+3	4	2018	330000	2	1
+4	5	2018	140000	2	1
+5	6	2018	3500	2	1
+6	7	2018	28000	2	1
+7	10	2018	6000	2	1
+8	12	2018	14000	2	1
+9	13	2018	3000	2	1
+10	14	2018	27000	2	1
+11	16	2018	4900	2	1
+12	17	2018	73000	2	1
+13	18	2018	1300	2	1
+14	19	2018	22000	2	1
+15	20	2018	500	2	1
+16	21	2018	370000	2	1
+17	22	2018	900000	2	1
+18	24	2018	3500	2	1
+19	25	2018	96000	2	1
+20	26	2018	82000	2	1
+21	27	2018	2400	2	1
+22	28	2018	73000	2	1
+23	29	2018	540000	2	1
+24	31	2018	110000	2	1
+25	32	2018	120000	2	1
+26	33	2018	71000	2	1
+27	35	2018	160000	2	1
+28	36	2018	200	2	1
+29	37	2018	89000	2	1
+30	38	2018	15000	2	1
+31	39	2018	460000	2	1
+32	40	2018	1600	2	1
+33	41	2018	31000	2	1
+34	43	2018	4400	2	1
+35	45	2018	450000	2	1
+36	46	2018	6200	2	1
+37	47	2018	8800	2	1
+38	48	2018	70000	2	1
+39	49	2018	44000	2	1
+40	50	2018	22000	2	1
+41	51	2018	25000	2	1
+42	52	2018	62000	2	1
+43	53	2018	18000	2	1
+44	54	2018	7400	2	1
+45	55	2018	210000	2	1
+46	56	2018	690000	2	1
+47	58	2018	4000	2	1
+48	59	2018	180000	2	1
+49	60	2018	53000	2	1
+50	61	2018	26000	2	1
+51	62	2018	9400	2	1
+52	63	2018	87000	2	1
+53	64	2018	330000	2	1
+54	66	2018	47000	2	1
+55	67	2018	120000	2	1
+56	68	2018	44000	2	1
+57	69	2018	8200	2	1
+58	70	2018	160000	2	1
+59	71	2018	23000	2	1
+60	72	2018	3700	2	1
+61	73	2018	500	2	1
+62	75	2018	640000	2	1
+63	76	2018	61000	2	1
+64	77	2018	7200	2	1
+65	78	2018	9000	2	1
+66	79	2018	130000	2	1
+67	80	2018	40000	2	1
+68	81	2018	30000	2	1
+69	82	2018	500	2	1
+70	83	2018	26000	2	1
+71	84	2018	1600000	2	1
+72	85	2018	640	2	1
+73	86	2018	8500	2	1
+74	87	2018	12000	2	1
+75	88	2018	5300	2	1
+76	89	2018	2500	2	1
+77	90	2018	340000	2	1
+78	91	2018	39000	2	1
+79	92	2018	9200	2	1
+80	94	2018	1200	2	1
+81	95	2018	39000	2	1
+82	96	2018	1000000	2	1
+83	97	2018	87000	2	1
+84	99	2018	150000	2	1
+85	101	2018	5600	2	1
+86	102	2018	13000	2	1
+87	103	2018	230000	2	1
+88	104	2018	600	2	1
+89	105	2018	500	2	1
+90	106	2018	21000	2	1
+91	107	2018	2200000	2	1
+92	108	2018	240000	2	1
+93	109	2018	200000	2	1
+94	110	2018	30000	2	1
+95	112	2018	3600	2	1
+96	113	2018	9400	2	1
+97	114	2018	36000	2	1
+98	115	2018	1900000	2	1
+99	116	2018	5800	2	1
+100	117	2018	3200	2	1
+101	118	2018	160000	2	1
+102	119	2018	26000	2	1
+103	120	2018	45000	2	1
+104	121	2018	21000	2	1
+105	122	2018	79000	2	1
+106	123	2018	77000	2	1
+107	125	2018	41000	2	1
+108	128	2018	17000	2	1
+109	129	2018	500	2	1
+110	130	2018	18000	2	1
+111	132	2018	220000	2	1
+112	134	2018	42000	2	1
+113	135	2018	3000	2	1
+114	136	2018	70000	2	1
+115	137	2018	7900	2	1
+116	138	2018	1200	2	1
+117	140	2018	11000	2	1
+118	141	2018	7700000	2	1
+119	142	2018	190000	2	1
+120	143	2018	150000	2	1
+121	144	2018	3500	2	1
+122	145	2018	59000	2	1
+123	146	2018	5600	2	1
+124	149	2018	660	2	1
+125	150	2018	13000	2	1
+126	151	2018	480000	2	1
+127	153	2018	110000	2	1
+128	155	2018	2800	2	1
+129	158	2018	1400000	2	1
+130	159	2018	240000	2	1
+131	162	2018	1600000	2	1
+132	164	2018	14000	2	1
+133	165	2018	52000	2	1
+134	166	2018	120000	2	1
+135	167	2018	230000	2	1
+136	168	2018	11000	2	1
+137	169	2018	1200000	2	1
+138	170	2018	1300000	2	1
+139	1	2010	4200	2	1
+140	3	2010	7100	2	1
+141	4	2010	220000	2	1
+142	5	2010	110000	2	1
+143	6	2010	3300	2	1
+144	7	2010	21000	2	1
+145	10	2010	5800	2	1
+146	12	2010	7700	2	1
+147	13	2010	2300	2	1
+148	14	2010	12000	2	1
+149	16	2010	3700	2	1
+150	17	2010	61000	2	1
+151	18	2010	1300	2	1
+152	19	2010	23000	2	1
+153	20	2010	200	2	1
+154	21	2010	340000	2	1
+155	22	2010	670000	2	1
+156	24	2010	1700	2	1
+157	25	2010	110000	2	1
+158	26	2010	93000	2	1
+159	27	2010	2100	2	1
+160	28	2010	79000	2	1
+161	29	2010	520000	2	1
+162	31	2010	140000	2	1
+163	32	2010	99000	2	1
+164	33	2010	39000	2	1
+165	35	2010	130000	2	1
+166	36	2010	200	2	1
+167	37	2010	82000	2	1
+168	38	2010	9300	2	1
+169	39	2010	480000	2	1
+170	40	2010	1000	2	1
+171	41	2010	17000	2	1
+172	43	2010	1800	2	1
+173	45	2010	480000	2	1
+174	46	2010	5500	2	1
+175	47	2010	9400	2	1
+176	48	2010	72000	2	1
+177	49	2010	34000	2	1
+178	50	2010	6800	2	1
+179	51	2010	26000	2	1
+180	52	2010	35000	2	1
+181	53	2010	17000	2	1
+182	54	2010	6000	2	1
+183	55	2010	160000	2	1
+184	56	2010	630000	2	1
+185	58	2010	2700	2	1
+186	59	2010	140000	2	1
+187	60	2010	43000	2	1
+188	61	2010	18000	2	1
+189	62	2010	5600	2	1
+190	63	2010	69000	2	1
+191	64	2010	300000	2	1
+192	66	2010	49000	2	1
+193	67	2010	100000	2	1
+194	68	2010	38000	2	1
+195	69	2010	6700	2	1
+196	70	2010	140000	2	1
+197	71	2010	26000	2	1
+198	72	2010	2000	2	1
+199	73	2010	500	2	1
+200	75	2010	510000	2	1
+201	76	2010	50000	2	1
+202	77	2010	4800	2	1
+203	78	2010	6000	2	1
+204	79	2010	110000	2	1
+205	80	2010	37000	2	1
+206	81	2010	19000	2	1
+207	82	2010	200	2	1
+208	83	2010	11000	2	1
+209	84	2010	1500000	2	1
+210	85	2010	500	2	1
+211	86	2010	4100	2	1
+212	87	2010	9900	2	1
+213	88	2010	4000	2	1
+214	89	2010	1600	2	1
+215	90	2010	300000	2	1
+216	91	2010	41000	2	1
+217	92	2010	6100	2	1
+218	94	2010	700	2	1
+219	95	2010	21000	2	1
+220	96	2010	870000	2	1
+221	97	2010	74000	2	1
+222	99	2010	120000	2	1
+223	101	2010	7100	2	1
+224	102	2010	11000	2	1
+225	103	2010	180000	2	1
+226	104	2010	500	2	1
+227	105	2010	200	2	1
+228	106	2010	17000	2	1
+229	107	2010	1600000	2	1
+230	108	2010	220000	2	1
+231	109	2010	170000	2	1
+232	110	2010	31000	2	1
+233	111	2010	20000	2	1
+234	112	2010	2500	2	1
+235	113	2010	7900	2	1
+236	114	2010	37000	2	1
+237	115	2010	1500000	2	1
+238	116	2010	4200	2	1
+239	117	2010	2200	2	1
+240	118	2010	67000	2	1
+241	119	2010	20000	2	1
+242	120	2010	38000	2	1
+243	121	2010	20000	2	1
+244	122	2010	65000	2	1
+245	123	2010	15000	2	1
+246	125	2010	40000	2	1
+247	128	2010	16000	2	1
+248	129	2010	200	2	1
+249	130	2010	14000	2	1
+250	132	2010	220000	2	1
+251	134	2010	44000	2	1
+252	135	2010	1800	2	1
+253	136	2010	58000	2	1
+254	137	2010	6500	2	1
+255	138	2010	500	2	1
+256	140	2010	17000	2	1
+257	141	2010	6100000	2	1
+258	142	2010	140000	2	1
+259	143	2010	140000	2	1
+260	144	2010	4000	2	1
+261	145	2010	43000	2	1
+262	146	2010	4600	2	1
+263	149	2010	570	2	1
+264	150	2010	9200	2	1
+265	151	2010	580000	2	1
+266	153	2010	100000	2	1
+267	155	2010	1400	2	1
+268	158	2010	1200000	2	1
+269	159	2010	230000	2	1
+270	162	2010	1300000	2	1
+271	163	2010	990000	2	1
+272	164	2010	9600	2	1
+273	165	2010	30000	2	1
+274	167	2010	220000	2	1
+275	168	2010	5100	2	1
+276	169	2010	1000000	2	1
+277	170	2010	1200000	2	1
+278	1	2005	2900	2	1
+279	3	2005	3700	2	1
+280	4	2005	150000	2	1
+281	5	2005	85000	2	1
+282	6	2005	2700	2	1
+283	7	2005	16000	2	1
+284	10	2005	5100	2	1
+285	12	2005	4000	2	1
+286	13	2005	1700	2	1
+287	14	2005	5400	2	1
+288	16	2005	2800	2	1
+289	17	2005	56000	2	1
+290	18	2005	1100	2	1
+291	19	2005	26000	2	1
+292	20	2005	200	2	1
+293	21	2005	310000	2	1
+294	22	2005	550000	2	1
+295	24	2005	980	2	1
+296	25	2005	120000	2	1
+297	26	2005	110000	2	1
+298	27	2005	1800	2	1
+299	28	2005	82000	2	1
+300	29	2005	470000	2	1
+301	31	2005	150000	2	1
+302	32	2005	88000	2	1
+303	33	2005	25000	2	1
+304	35	2005	120000	2	1
+305	36	2005	100	2	1
+306	37	2005	77000	2	1
+307	38	2005	6500	2	1
+308	39	2005	510000	2	1
+309	40	2005	710	2	1
+310	41	2005	9000	2	1
+311	43	2005	970	2	1
+312	45	2005	510000	2	1
+313	46	2005	4900	2	1
+314	47	2005	11000	2	1
+315	48	2005	79000	2	1
+316	49	2005	29000	2	1
+317	50	2005	3200	2	1
+318	51	2005	23000	2	1
+319	52	2005	22000	2	1
+320	53	2005	17000	2	1
+321	54	2005	5400	2	1
+322	55	2005	130000	2	1
+323	56	2005	640000	2	1
+324	58	2005	1900	2	1
+325	59	2005	110000	2	1
+326	60	2005	35000	2	1
+327	61	2005	15000	2	1
+328	62	2005	2800	2	1
+329	63	2005	56000	2	1
+330	64	2005	280000	2	1
+331	66	2005	48000	2	1
+332	67	2005	93000	2	1
+333	68	2005	31000	2	1
+334	69	2005	5000	2	1
+335	70	2005	140000	2	1
+336	71	2005	31000	2	1
+337	72	2005	1200	2	1
+338	73	2005	200	2	1
+339	75	2005	290000	2	1
+340	76	2005	37000	2	1
+341	77	2005	3200	2	1
+342	78	2005	4100	2	1
+343	79	2005	89000	2	1
+344	80	2005	38000	2	1
+345	81	2005	12000	2	1
+346	82	2005	200	2	1
+347	83	2005	4000	2	1
+348	84	2005	1500000	2	1
+349	85	2005	500	2	1
+350	86	2005	1500	2	1
+351	87	2005	6700	2	1
+352	88	2005	3200	2	1
+353	89	2005	1300	2	1
+354	90	2005	280000	2	1
+355	91	2005	41000	2	1
+356	92	2005	2900	2	1
+357	94	2005	500	2	1
+358	95	2005	19000	2	1
+359	96	2005	820000	2	1
+360	97	2005	66000	2	1
+361	99	2005	110000	2	1
+362	101	2005	7500	2	1
+363	102	2005	8000	2	1
+364	103	2005	150000	2	1
+365	104	2005	500	2	1
+366	105	2005	100	2	1
+367	106	2005	13000	2	1
+368	107	2005	1200000	2	1
+369	108	2005	210000	2	1
+370	109	2005	160000	2	1
+371	110	2005	29000	2	1
+372	111	2005	16000	2	1
+373	112	2005	1800	2	1
+374	113	2005	6100	2	1
+375	114	2005	40000	2	1
+376	115	2005	1400000	2	1
+377	116	2005	3000	2	1
+378	117	2005	1700	2	1
+379	118	2005	12000	2	1
+380	119	2005	16000	2	1
+381	120	2005	38000	2	1
+382	121	2005	19000	2	1
+383	122	2005	65000	2	1
+384	123	2005	3700	2	1
+385	125	2005	37000	2	1
+386	128	2005	12000	2	1
+387	129	2005	100	2	1
+388	130	2005	11000	2	1
+389	132	2005	220000	2	1
+390	134	2005	42000	2	1
+391	135	2005	1100	2	1
+392	136	2005	51000	2	1
+393	137	2005	4100	2	1
+394	138	2005	500	2	1
+395	140	2005	20000	2	1
+396	141	2005	5000000	2	1
+397	142	2005	120000	2	1
+398	143	2005	120000	2	1
+399	144	2005	3600	2	1
+400	145	2005	29000	2	1
+401	146	2005	4000	2	1
+402	149	2005	500	2	1
+403	150	2005	5200	2	1
+404	151	2005	630000	2	1
+405	153	2005	100000	2	1
+406	155	2005	640	2	1
+407	158	2005	1100000	2	1
+408	159	2005	230000	2	1
+409	162	2005	1200000	2	1
+410	164	2005	7600	2	1
+411	165	2005	21000	2	1
+412	167	2005	180000	2	1
+413	168	2005	2400	2	1
+414	169	2005	920000	2	1
+415	170	2005	1400000	2	1
+416	1	2000	1600	2	1
+417	3	2000	1900	2	1
+418	4	2000	87000	2	1
+419	5	2000	64000	2	1
+420	6	2000	950	2	1
+421	7	2000	13000	2	1
+422	10	2000	5100	2	1
+423	12	2000	940	2	1
+424	13	2000	1100	2	1
+425	14	2000	1400	2	1
+426	16	2000	1700	2	1
+427	17	2000	47000	2	1
+428	18	2000	530	2	1
+429	19	2000	21000	2	1
+430	20	2000	100	2	1
+431	21	2000	280000	2	1
+432	22	2000	410000	2	1
+433	24	2000	500	2	1
+434	25	2000	140000	2	1
+435	26	2000	130000	2	1
+436	27	2000	1600	2	1
+437	28	2000	81000	2	1
+438	29	2000	370000	2	1
+439	31	2000	160000	2	1
+440	32	2000	80000	2	1
+441	33	2000	14000	2	1
+442	35	2000	110000	2	1
+443	36	2000	100	2	1
+444	37	2000	80000	2	1
+445	38	2000	4300	2	1
+446	39	2000	590000	2	1
+447	40	2000	500	2	1
+448	41	2000	4100	2	1
+449	43	2000	510	2	1
+450	45	2000	540000	2	1
+451	46	2000	4000	2	1
+452	47	2000	9400	2	1
+453	48	2000	85000	2	1
+454	49	2000	26000	2	1
+455	50	2000	1500	2	1
+456	51	2000	18000	2	1
+457	52	2000	13000	2	1
+458	53	2000	16000	2	1
+459	54	2000	3400	2	1
+460	55	2000	110000	2	1
+461	56	2000	750000	2	1
+462	58	2000	1100	2	1
+463	59	2000	82000	2	1
+464	60	2000	28000	2	1
+465	61	2000	9900	2	1
+466	62	2000	980	2	1
+467	63	2000	45000	2	1
+468	64	2000	270000	2	1
+469	66	2000	44000	2	1
+470	67	2000	83000	2	1
+471	68	2000	22000	2	1
+472	69	2000	2300	2	1
+473	70	2000	150000	2	1
+474	71	2000	40000	2	1
+475	72	2000	830	2	1
+476	73	2000	100	2	1
+477	75	2000	80000	2	1
+478	76	2000	16000	2	1
+479	77	2000	1900	2	1
+480	78	2000	2700	2	1
+481	79	2000	68000	2	1
+482	80	2000	41000	2	1
+483	81	2000	6200	2	1
+484	82	2000	100	2	1
+485	83	2000	1100	2	1
+486	84	2000	1700000	2	1
+487	85	2000	200	2	1
+488	86	2000	710	2	1
+489	87	2000	2200	2	1
+490	88	2000	2300	2	1
+491	89	2000	910	2	1
+492	90	2000	260000	2	1
+493	91	2000	43000	2	1
+494	92	2000	950	2	1
+495	94	2000	500	2	1
+496	95	2000	13000	2	1
+497	96	2000	810000	2	1
+498	97	2000	55000	2	1
+499	99	2000	110000	2	1
+500	101	2000	5500	2	1
+501	102	2000	3200	2	1
+502	103	2000	130000	2	1
+503	104	2000	100	2	1
+504	105	2000	100	2	1
+505	106	2000	9700	2	1
+506	107	2000	840000	2	1
+507	108	2000	150000	2	1
+508	109	2000	140000	2	1
+509	110	2000	16000	2	1
+510	111	2000	11000	2	1
+511	112	2000	1300	2	1
+512	113	2000	3600	2	1
+513	114	2000	37000	2	1
+514	115	2000	1300000	2	1
+515	116	2000	1900	2	1
+516	117	2000	1300	2	1
+517	118	2000	500	2	1
+518	119	2000	11000	2	1
+519	120	2000	20000	2	1
+520	121	2000	14000	2	1
+521	122	2000	71000	2	1
+522	123	2000	1000	2	1
+523	125	2000	32000	2	1
+524	128	2000	10000	2	1
+525	129	2000	100	2	1
+526	130	2000	7500	2	1
+527	132	2000	240000	2	1
+528	134	2000	33000	2	1
+529	135	2000	1000	2	1
+530	136	2000	40000	2	1
+531	137	2000	2900	2	1
+532	138	2000	200	2	1
+533	140	2000	16000	2	1
+534	141	2000	3300000	2	1
+535	142	2000	90000	2	1
+536	143	2000	92000	2	1
+537	144	2000	2200	2	1
+538	145	2000	15000	2	1
+539	146	2000	3100	2	1
+540	149	2000	500	2	1
+541	150	2000	1400	2	1
+542	151	2000	740000	2	1
+543	153	2000	94000	2	1
+544	155	2000	500	2	1
+545	158	2000	1000000	2	1
+546	159	2000	170000	2	1
+547	162	2000	1100000	2	1
+548	164	2000	6000	2	1
+549	165	2000	14000	2	1
+550	167	2000	120000	2	1
+551	168	2000	1100	2	1
+552	169	2000	890000	2	1
+553	170	2000	1600000	2	1
+554	1	2018	500	2	2
+555	3	2018	200	2	2
+556	4	2018	14000	2	2
+557	5	2018	1700	2	2
+558	6	2018	200	2	2
+559	7	2018	200	2	2
+560	10	2018	200	2	2
+561	12	2018	580	2	2
+562	13	2018	100	2	2
+563	14	2018	500	2	2
+564	16	2018	200	2	2
+565	17	2018	2200	2	2
+566	18	2018	100	2	2
+567	19	2018	670	2	2
+568	20	2018	100	2	2
+569	21	2018	4800	2	2
+570	22	2018	15000	2	2
+571	24	2018	100	2	2
+572	25	2018	3300	2	2
+573	26	2018	1900	2	2
+574	27	2018	100	2	2
+575	28	2018	1300	2	2
+576	29	2018	18000	2	2
+577	31	2018	4800	2	2
+578	32	2018	3100	2	2
+579	33	2018	590	2	2
+580	36	2018	100	2	2
+581	37	2018	4000	2	2
+582	38	2018	500	2	2
+583	39	2018	16000	2	2
+584	40	2018	100	2	2
+585	41	2018	500	2	2
+586	43	2018	100	2	2
+587	45	2018	13000	2	2
+588	46	2018	100	2	2
+589	47	2018	500	2	2
+590	48	2018	1200	2	2
+591	49	2018	620	2	2
+592	50	2018	500	2	2
+593	51	2018	700	2	2
+594	52	2018	1800	2	2
+595	53	2018	500	2	2
+596	54	2018	100	2	2
+597	55	2018	2400	2	2
+598	56	2018	11000	2	2
+599	58	2018	100	2	2
+600	59	2018	500	2	2
+601	60	2018	1200	2	2
+602	61	2018	980	2	2
+603	62	2018	500	2	2
+604	63	2018	500	2	2
+605	64	2018	14000	2	2
+606	66	2018	2200	2	2
+607	67	2018	4300	2	2
+608	68	2018	1800	2	2
+609	69	2018	200	2	2
+610	70	2018	2700	2	2
+611	71	2018	780	2	2
+612	72	2018	100	2	2
+613	73	2018	100	2	2
+614	75	2018	38000	2	2
+615	76	2018	2600	2	2
+616	77	2018	100	2	2
+617	78	2018	100	2	2
+618	79	2018	710	2	2
+619	80	2018	1500	2	2
+620	82	2018	100	2	2
+621	83	2018	500	2	2
+622	84	2018	25000	2	2
+623	85	2018	100	2	2
+624	86	2018	200	2	2
+625	87	2018	500	2	2
+626	88	2018	100	2	2
+627	89	2018	100	2	2
+628	90	2018	6100	2	2
+629	91	2018	1800	2	2
+630	92	2018	200	2	2
+631	94	2018	100	2	2
+632	95	2018	1700	2	2
+633	96	2018	13000	2	2
+634	97	2018	2600	2	2
+635	99	2018	6500	2	2
+636	101	2018	500	2	2
+637	102	2018	610	2	2
+638	104	2018	100	2	2
+639	105	2018	100	2	2
+640	106	2018	500	2	2
+641	107	2018	54000	2	2
+642	108	2018	7800	2	2
+643	109	2018	2700	2	2
+644	110	2018	910	2	2
+645	112	2018	100	2	2
+646	113	2018	200	2	2
+647	114	2018	1200	2	2
+648	115	2018	53000	2	2
+649	116	2018	100	2	2
+650	117	2018	100	2	2
+651	118	2018	6400	2	2
+652	119	2018	500	2	2
+653	121	2018	720	2	2
+654	122	2018	1000	2	2
+655	123	2018	1200	2	2
+656	125	2018	500	2	2
+657	128	2018	570	2	2
+658	129	2018	100	2	2
+659	130	2018	200	2	2
+660	132	2018	2900	2	2
+661	134	2018	1300	2	2
+662	135	2018	100	2	2
+663	136	2018	2100	2	2
+664	137	2018	100	2	2
+665	138	2018	100	2	2
+666	139	2018	100	2	2
+667	140	2018	710	2	2
+668	141	2018	71000	2	2
+669	142	2018	9900	2	2
+670	144	2018	200	2	2
+671	145	2018	2900	2	2
+672	146	2018	100	2	2
+673	149	2018	100	2	2
+674	150	2018	500	2	2
+675	151	2018	18000	2	2
+676	153	2018	3800	2	2
+677	155	2018	100	2	2
+678	158	2018	23000	2	2
+679	159	2018	6100	2	2
+680	162	2018	24000	2	2
+681	164	2018	200	2	2
+682	165	2018	1300	2	2
+683	167	2018	4700	2	2
+684	168	2018	500	2	2
+685	169	2018	17000	2	2
+686	170	2018	22000	2	2
+687	1	2010	500	2	2
+688	3	2010	200	2	2
+689	4	2010	10000	2	2
+690	5	2010	1600	2	2
+691	6	2010	200	2	2
+692	7	2010	500	2	2
+693	10	2010	200	2	2
+694	12	2010	500	2	2
+695	13	2010	100	2	2
+696	14	2010	200	2	2
+697	16	2010	200	2	2
+698	17	2010	2000	2	2
+699	18	2010	100	2	2
+700	19	2010	1600	2	2
+701	20	2010	100	2	2
+702	21	2010	7300	2	2
+703	22	2010	15000	2	2
+704	24	2010	100	2	2
+705	25	2010	4800	2	2
+706	26	2010	5200	2	2
+707	27	2010	100	2	2
+708	28	2010	2500	2	2
+709	29	2010	22000	2	2
+710	31	2010	7800	2	2
+711	32	2010	3500	2	2
+712	36	2010	100	2	2
+713	37	2010	3900	2	2
+714	38	2010	500	2	2
+715	39	2010	24000	2	2
+716	40	2010	100	2	2
+717	41	2010	500	2	2
+718	43	2010	100	2	2
+719	45	2010	34000	2	2
+720	46	2010	100	2	2
+721	47	2010	630	2	2
+722	48	2010	3000	2	2
+723	49	2010	1100	2	2
+724	50	2010	200	2	2
+725	51	2010	500	2	2
+726	52	2010	1400	2	2
+727	53	2010	620	2	2
+728	54	2010	200	2	2
+729	55	2010	3800	2	2
+730	56	2010	20000	2	2
+731	58	2010	100	2	2
+732	59	2010	600	2	2
+733	60	2010	1600	2	2
+734	61	2010	970	2	2
+735	62	2010	100	2	2
+736	63	2010	500	2	2
+737	64	2010	17000	2	2
+738	66	2010	1700	2	2
+739	67	2010	4100	2	2
+740	68	2010	1900	2	2
+741	69	2010	100	2	2
+742	70	2010	4900	2	2
+743	71	2010	1400	2	2
+744	72	2010	100	2	2
+745	73	2010	100	2	2
+746	75	2010	24000	2	2
+747	76	2010	2400	2	2
+748	77	2010	100	2	2
+749	78	2010	100	2	2
+750	79	2010	830	2	2
+751	80	2010	1800	2	2
+752	82	2010	100	2	2
+753	83	2010	500	2	2
+754	84	2010	56000	2	2
+755	85	2010	100	2	2
+756	86	2010	200	2	2
+757	87	2010	500	2	2
+758	88	2010	200	2	2
+759	89	2010	100	2	2
+760	90	2010	7200	2	2
+761	91	2010	2700	2	2
+762	92	2010	100	2	2
+763	94	2010	100	2	2
+764	95	2010	1400	2	2
+765	96	2010	29000	2	2
+766	97	2010	2900	2	2
+767	99	2010	5300	2	2
+768	101	2010	500	2	2
+769	102	2010	500	2	2
+770	104	2010	100	2	2
+771	105	2010	100	2	2
+772	106	2010	550	2	2
+773	107	2010	64000	2	2
+774	108	2010	11000	2	2
+775	109	2010	3500	2	2
+776	110	2010	1400	2	2
+777	111	2010	200	2	2
+778	112	2010	100	2	2
+779	113	2010	500	2	2
+780	114	2010	1700	2	2
+781	115	2010	72000	2	2
+782	116	2010	100	2	2
+783	117	2010	100	2	2
+784	118	2010	1400	2	2
+785	119	2010	500	2	2
+786	121	2010	790	2	2
+787	122	2010	2100	2	2
+788	123	2010	500	2	2
+789	125	2010	930	2	2
+790	128	2010	740	2	2
+791	129	2010	100	2	2
+792	130	2010	200	2	2
+793	132	2010	5700	2	2
+794	134	2010	1300	2	2
+795	135	2010	100	2	2
+796	136	2010	2900	2	2
+797	137	2010	100	2	2
+798	138	2010	100	2	2
+799	139	2010	100	2	2
+800	140	2010	1400	2	2
+801	141	2010	140000	2	2
+802	142	2010	9800	2	2
+803	143	2010	1300	2	2
+804	144	2010	500	2	2
+805	145	2010	1900	2	2
+806	146	2010	200	2	2
+807	149	2010	100	2	2
+808	150	2010	500	2	2
+809	151	2010	27000	2	2
+810	153	2010	5700	2	2
+811	155	2010	100	2	2
+812	158	2010	56000	2	2
+813	159	2010	12000	2	2
+814	162	2010	48000	2	2
+815	164	2010	500	2	2
+816	165	2010	1800	2	2
+817	167	2010	8500	2	2
+818	168	2010	200	2	2
+819	169	2010	26000	2	2
+820	170	2010	54000	2	2
+821	1	2000	100	2	2
+822	3	2000	100	2	2
+823	4	2000	4800	2	2
+824	5	2000	1400	2	2
+825	6	2000	100	2	2
+826	7	2000	500	2	2
+827	10	2000	500	2	2
+828	12	2000	100	2	2
+829	13	2000	100	2	2
+830	14	2000	100	2	2
+831	16	2000	100	2	2
+832	17	2000	2400	2	2
+833	18	2000	100	2	2
+834	19	2000	670	2	2
+835	20	2000	100	2	2
+836	21	2000	15000	2	2
+837	22	2000	15000	2	2
+838	24	2000	100	2	2
+839	25	2000	12000	2	2
+840	26	2000	11000	2	2
+841	27	2000	200	2	2
+842	28	2000	4500	2	2
+843	29	2000	19000	2	2
+844	31	2000	11000	2	2
+845	32	2000	5600	2	2
+846	36	2000	100	2	2
+847	37	2000	6100	2	2
+848	38	2000	500	2	2
+849	39	2000	44000	2	2
+850	40	2000	100	2	2
+851	41	2000	200	2	2
+852	43	2000	100	2	2
+853	45	2000	43000	2	2
+854	46	2000	100	2	2
+855	47	2000	500	2	2
+856	48	2000	4800	2	2
+857	49	2000	1500	2	2
+858	50	2000	100	2	2
+859	51	2000	810	2	2
+860	52	2000	680	2	2
+861	53	2000	1100	2	2
+862	54	2000	100	2	2
+863	55	2000	5000	2	2
+864	56	2000	58000	2	2
+865	58	2000	100	2	2
+866	59	2000	880	2	2
+867	60	2000	1600	2	2
+868	61	2000	500	2	2
+869	62	2000	100	2	2
+870	63	2000	880	2	2
+871	64	2000	18000	2	2
+872	66	2000	2400	2	2
+873	67	2000	5000	2	2
+874	68	2000	1100	2	2
+875	69	2000	100	2	2
+876	70	2000	12000	2	2
+877	71	2000	3200	2	2
+878	72	2000	100	2	2
+879	73	2000	100	2	2
+880	75	2000	1900	2	2
+881	76	2000	500	2	2
+882	77	2000	100	2	2
+883	78	2000	100	2	2
+884	79	2000	1200	2	2
+885	80	2000	2400	2	2
+886	82	2000	100	2	2
+887	83	2000	100	2	2
+888	84	2000	120000	2	2
+889	85	2000	100	2	2
+890	86	2000	100	2	2
+891	87	2000	100	2	2
+892	88	2000	100	2	2
+893	89	2000	100	2	2
+894	90	2000	12000	2	2
+895	91	2000	3000	2	2
+896	92	2000	100	2	2
+897	94	2000	100	2	2
+898	95	2000	500	2	2
+899	96	2000	57000	2	2
+900	97	2000	2700	2	2
+901	99	2000	7700	2	2
+902	101	2000	500	2	2
+903	102	2000	100	2	2
+904	104	2000	100	2	2
+905	105	2000	100	2	2
+906	106	2000	500	2	2
+907	107	2000	40000	2	2
+908	108	2000	5800	2	2
+909	109	2000	7300	2	2
+910	110	2000	500	2	2
+911	111	2000	200	2	2
+912	112	2000	100	2	2
+913	113	2000	100	2	2
+914	114	2000	2300	2	2
+915	115	2000	78000	2	2
+916	116	2000	100	2	2
+917	117	2000	100	2	2
+918	118	2000	100	2	2
+919	119	2000	500	2	2
+920	121	2000	500	2	2
+921	122	2000	5100	2	2
+922	123	2000	100	2	2
+923	125	2000	1100	2	2
+924	128	2000	500	2	2
+925	129	2000	100	2	2
+926	130	2000	500	2	2
+927	132	2000	18000	2	2
+928	134	2000	1700	2	2
+929	135	2000	200	2	2
+930	136	2000	2400	2	2
+931	138	2000	100	2	2
+932	139	2000	100	2	2
+933	140	2000	810	2	2
+934	141	2000	100000	2	2
+935	142	2000	5100	2	2
+936	143	2000	1800	2	2
+937	144	2000	100	2	2
+938	145	2000	650	2	2
+939	146	2000	200	2	2
+940	149	2000	100	2	2
+941	150	2000	100	2	2
+942	151	2000	54000	2	2
+943	153	2000	5600	2	2
+944	155	2000	100	2	2
+945	158	2000	85000	2	2
+946	159	2000	4500	2	2
+947	162	2000	80000	2	2
+948	164	2000	500	2	2
+949	165	2000	840	2	2
+950	167	2000	6100	2	2
+951	168	2000	100	2	2
+952	169	2000	62000	2	2
+953	170	2000	120000	2	2
+954	1	2018	11	2	3
+955	3	2018	74	2	3
+956	4	2018	38	2	3
+957	5	2018	95	2	3
+958	10	2018	58	2	3
+959	12	2018	28	2	3
+960	14	2018	90	2	3
+961	16	2018	44	2	3
+962	17	2018	95	2	3
+963	19	2018	95	2	3
+964	21	2018	95	2	3
+965	25	2018	95	2	3
+966	26	2018	80	2	3
+967	28	2018	85	2	3
+968	29	2018	80	2	3
+969	31	2018	71	2	3
+970	32	2018	56	2	3
+971	33	2018	95	2	3
+972	35	2018	21	2	3
+973	37	2018	25	2	3
+974	39	2018	90	2	3
+975	41	2018	95	2	3
+976	45	2018	44	2	3
+977	47	2018	30	2	3
+978	48	2018	84	2	3
+979	49	2018	95	2	3
+980	50	2018	16	2	3
+981	51	2018	40	2	3
+982	52	2018	50	2	3
+983	53	2018	48	2	3
+984	55	2018	79	2	3
+985	56	2018	92	2	3
+986	60	2018	72	2	3
+987	61	2018	68	2	3
+988	64	2018	79	2	3
+989	66	2018	34	2	3
+990	67	2018	65	2	3
+991	68	2018	48	2	3
+992	69	2018	89	2	3
+993	70	2018	83	2	3
+994	71	2018	59	2	3
+995	75	2018	15	2	3
+996	76	2018	81	2	3
+997	80	2018	95	2	3
+998	83	2018	59	2	3
+999	84	2018	91	2	3
+1000	86	2018	88	2	3
+1001	87	2018	35	2	3
+1002	90	2018	77	2	3
+1003	91	2018	93	2	3
+1004	92	2018	63	2	3
+1005	95	2018	25	2	3
+1006	96	2018	95	2	3
+1007	97	2018	95	2	3
+1008	99	2018	24	2	3
+1009	101	2018	38	2	3
+1010	102	2018	95	2	3
+1011	106	2018	61	2	3
+1012	107	2018	95	2	3
+1013	108	2018	80	2	3
+1014	109	2018	95	2	3
+1015	110	2018	51	2	3
+1016	113	2018	90	2	3
+1017	114	2018	58	2	3
+1018	115	2018	44	2	3
+1019	118	2018	10	2	3
+1020	119	2018	92	2	3
+1021	120	2018	79	2	3
+1022	121	2018	88	2	3
+1023	122	2018	85	2	3
+1024	123	2018	18	2	3
+1025	128	2018	73	2	3
+1026	130	2018	95	2	3
+1027	132	2018	95	2	3
+1028	134	2018	65	2	3
+1029	140	2018	19	2	3
+1030	141	2018	87	2	3
+1031	142	2018	56	2	3
+1032	145	2018	5	2	3
+1033	146	2018	95	2	3
+1034	150	2018	46	2	3
+1035	151	2018	95	2	3
+1036	153	2018	80	2	3
+1037	158	2018	93	2	3
+1038	159	2018	95	2	3
+1039	162	2018	93	2	3
+1040	164	2018	95	2	3
+1041	165	2018	35	2	3
+1042	167	2018	81	2	3
+1043	168	2018	13	2	3
+1044	169	2018	95	2	3
+1045	170	2018	94	2	3
+\.
+
+
+--
+-- TOC entry 3411 (class 0 OID 16481)
+-- Dependencies: 228
+-- Data for Name: traitement; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.traitement (id, id_pays, valeur, id_unite, id_type_traitement) FROM stdin;
+1	1	13	\N	1
+2	3	81	\N	1
+3	4	27	\N	1
+4	5	61	\N	1
+5	6	53	\N	1
+6	7	83	\N	1
+7	10	52	\N	1
+8	12	22	\N	1
+9	13	50	\N	1
+10	14	59	\N	1
+11	16	28	\N	1
+12	17	61	\N	1
+13	18	37	\N	1
+14	19	44	\N	1
+15	20	67	\N	1
+16	21	83	\N	1
+17	22	66	\N	1
+18	24	41	\N	1
+19	25	62	\N	1
+20	26	80	\N	1
+21	27	89	\N	1
+22	28	81	\N	1
+23	29	52	\N	1
+24	31	36	\N	1
+25	32	51	\N	1
+26	33	63	\N	1
+27	35	73	\N	1
+28	36	79	\N	1
+29	37	35	\N	1
+30	38	49	\N	1
+31	39	55	\N	1
+32	40	75	\N	1
+33	41	72	\N	1
+34	43	60	\N	1
+35	45	57	\N	1
+36	46	89	\N	1
+37	47	30	\N	1
+38	48	56	\N	1
+39	49	57	\N	1
+40	50	31	\N	1
+41	51	47	\N	1
+42	52	34	\N	1
+43	53	51	\N	1
+44	54	59	\N	1
+45	55	86	\N	1
+46	56	65	\N	1
+47	58	76	\N	1
+48	59	83	\N	1
+49	60	67	\N	1
+50	61	29	\N	1
+51	62	49	\N	1
+52	63	80	\N	1
+53	64	34	\N	1
+54	66	43	\N	1
+55	67	40	\N	1
+56	68	33	\N	1
+57	69	68	\N	1
+58	70	58	\N	1
+59	71	50	\N	1
+60	72	56	\N	1
+61	73	79	\N	1
+62	75	17	\N	1
+63	76	20	\N	1
+64	77	80	\N	1
+65	79	91	\N	1
+66	80	31	\N	1
+67	81	80	\N	1
+68	82	84	\N	1
+69	83	58	\N	1
+70	84	68	\N	1
+71	85	62	\N	1
+72	86	43	\N	1
+73	87	54	\N	1
+74	88	45	\N	1
+75	89	60	\N	1
+76	90	61	\N	1
+77	91	35	\N	1
+78	92	44	\N	1
+79	94	77	\N	1
+80	95	9	\N	1
+81	96	78	\N	1
+82	97	48	\N	1
+83	99	31	\N	1
+84	101	54	\N	1
+85	102	22	\N	1
+86	103	70	\N	1
+87	104	32	\N	1
+88	105	40	\N	1
+89	106	65	\N	1
+90	107	56	\N	1
+91	108	70	\N	1
+92	109	92	\N	1
+93	110	56	\N	1
+94	112	73	\N	1
+95	113	53	\N	1
+96	114	54	\N	1
+97	115	53	\N	1
+98	116	82	\N	1
+99	117	41	\N	1
+100	118	10	\N	1
+101	119	54	\N	1
+102	120	65	\N	1
+103	121	40	\N	1
+104	122	73	\N	1
+105	123	44	\N	1
+106	125	90	\N	1
+107	128	34	\N	1
+108	129	54	\N	1
+109	130	67	\N	1
+110	132	87	\N	1
+111	134	63	\N	1
+112	135	65	\N	1
+113	136	41	\N	1
+114	137	78	\N	1
+115	138	54	\N	1
+116	140	30	\N	1
+117	141	62	\N	1
+118	142	16	\N	1
+119	143	84	\N	1
+120	144	45	\N	1
+121	145	15	\N	1
+122	146	52	\N	1
+123	149	20	\N	1
+124	150	46	\N	1
+125	151	75	\N	1
+126	153	60	\N	1
+127	155	39	\N	1
+128	158	72	\N	1
+129	159	52	\N	1
+130	162	71	\N	1
+131	164	58	\N	1
+132	165	51	\N	1
+133	167	65	\N	1
+134	168	21	\N	1
+135	169	78	\N	1
+136	170	88	\N	1
+137	1	17	\N	2
+138	3	95	\N	2
+139	4	13	\N	2
+140	5	92	\N	2
+141	10	21	\N	2
+142	12	33	\N	2
+143	14	88	\N	2
+144	16	34	\N	2
+145	17	44	\N	2
+146	19	40	\N	2
+147	21	38	\N	2
+148	25	21	\N	2
+149	26	30	\N	2
+150	28	92	\N	2
+151	29	24	\N	2
+152	31	23	\N	2
+153	32	16	\N	2
+154	33	56	\N	2
+155	35	41	\N	2
+156	37	25	\N	2
+157	39	40	\N	2
+158	41	34	\N	2
+159	45	25	\N	2
+160	47	10	\N	2
+161	48	55	\N	2
+162	49	82	\N	2
+163	50	39	\N	2
+164	51	24	\N	2
+165	52	14	\N	2
+166	53	37	\N	2
+167	55	76	\N	2
+168	56	59	\N	2
+169	60	57	\N	2
+170	61	30	\N	2
+171	64	20	\N	2
+172	66	36	\N	2
+173	67	20	\N	2
+174	68	6	\N	2
+175	69	38	\N	2
+176	70	40	\N	2
+177	71	41	\N	2
+178	75	22	\N	2
+179	76	58	\N	2
+180	80	51	\N	2
+181	83	95	\N	2
+182	84	61	\N	2
+183	86	95	\N	2
+184	87	40	\N	2
+185	90	70	\N	2
+186	91	18	\N	2
+187	92	33	\N	2
+188	95	5	\N	2
+189	96	61	\N	2
+190	97	94	\N	2
+191	99	18	\N	2
+192	101	54	\N	2
+193	102	45	\N	2
+194	106	95	\N	2
+195	107	60	\N	2
+196	108	80	\N	2
+197	109	78	\N	2
+198	110	91	\N	2
+199	113	55	\N	2
+200	114	52	\N	2
+201	115	35	\N	2
+202	118	11	\N	2
+203	119	76	\N	2
+204	120	49	\N	2
+205	121	43	\N	2
+206	122	48	\N	2
+207	123	20	\N	2
+208	128	40	\N	2
+209	130	95	\N	2
+210	132	63	\N	2
+211	134	31	\N	2
+212	136	17	\N	2
+213	140	14	\N	2
+214	141	63	\N	2
+215	142	9	\N	2
+216	145	15	\N	2
+217	146	72	\N	2
+218	150	95	\N	2
+219	151	83	\N	2
+220	153	34	\N	2
+221	158	66	\N	2
+222	159	95	\N	2
+223	162	65	\N	2
+224	164	64	\N	2
+225	165	93	\N	2
+226	167	92	\N	2
+227	168	33	\N	2
+228	169	79	\N	2
+229	170	76	\N	2
+\.
+
+
+--
+-- TOC entry 3409 (class 0 OID 16462)
+-- Dependencies: 226
+-- Data for Name: transmission_mere_enfant; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.transmission_mere_enfant (id, id_pays, besoin_arv_min, besoin_arv_median, besoin_arv_max, pourcentage_recu_min, pourcentage_recu_median, pourcentage_recu_max, id_unite) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3401 (class 0 OID 16410)
+-- Dependencies: 218
+-- Data for Name: type_statistique; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.type_statistique (id_type_statistique, nom_type_statistique) FROM stdin;
+1	taux de prévalence
+2	taux de mortalité
+3	taux de transmission mère-enfant
+4	taux de couverture traitement
+5	taux de nouvelles infections
+\.
+
+
+--
+-- TOC entry 3403 (class 0 OID 16417)
+-- Dependencies: 220
+-- Data for Name: type_traitement; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.type_traitement (id_type_traitement, nom_type_traitement) FROM stdin;
+1	traitement adulte
+2	traitement pédiatrique
+3	traitement prévention transmission
+\.
+
+
+--
+-- TOC entry 3399 (class 0 OID 16403)
+-- Dependencies: 216
+-- Data for Name: unite; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.unite (id_unite, nom_unite) FROM stdin;
+1	nombre de personnes
+2	pourcentage
+3	ratio
+4	année
+\.
+
+
+--
+-- TOC entry 3428 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: mortalite_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.mortalite_id_seq', 1, false);
+
+
+--
+-- TOC entry 3429 (class 0 OID 0)
+-- Dependencies: 213
+-- Name: pays_id_pays_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.pays_id_pays_seq', 1, false);
+
+
+--
+-- TOC entry 3430 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: population_hiv_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.population_hiv_id_seq', 1, false);
+
+
+--
+-- TOC entry 3431 (class 0 OID 0)
+-- Dependencies: 229
+-- Name: statistique_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.statistique_id_seq', 1, false);
+
+
+--
+-- TOC entry 3432 (class 0 OID 0)
+-- Dependencies: 227
+-- Name: traitement_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.traitement_id_seq', 1, false);
+
+
+--
+-- TOC entry 3433 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: transmission_mere_enfant_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.transmission_mere_enfant_id_seq', 1, false);
+
+
+--
+-- TOC entry 3434 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: type_statistique_id_type_statistique_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.type_statistique_id_type_statistique_seq', 1, false);
+
+
+--
+-- TOC entry 3435 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: type_traitement_id_type_traitement_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.type_traitement_id_type_traitement_seq', 1, false);
+
+
+--
+-- TOC entry 3436 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: unite_id_unite_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.unite_id_unite_seq', 1, false);
+
+
+--
+-- TOC entry 3230 (class 2606 OID 16450)
+-- Name: mortalite mortalite_id_pays_annee_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.mortalite
+    ADD CONSTRAINT mortalite_id_pays_annee_key UNIQUE (id_pays, annee);
+
+
+--
+-- TOC entry 3232 (class 2606 OID 16448)
+-- Name: mortalite mortalite_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.mortalite
+    ADD CONSTRAINT mortalite_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3218 (class 2606 OID 16401)
+-- Name: pays pays_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pays
+    ADD CONSTRAINT pays_pkey PRIMARY KEY (id_pays);
+
+
+--
+-- TOC entry 3226 (class 2606 OID 16431)
+-- Name: population_hiv population_hiv_id_pays_annee_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.population_hiv
+    ADD CONSTRAINT population_hiv_id_pays_annee_key UNIQUE (id_pays, annee);
+
+
+--
+-- TOC entry 3228 (class 2606 OID 16429)
+-- Name: population_hiv population_hiv_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.population_hiv
+    ADD CONSTRAINT population_hiv_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3242 (class 2606 OID 16512)
+-- Name: statistique statistique_id_pays_annee_id_type_statistique_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.statistique
+    ADD CONSTRAINT statistique_id_pays_annee_id_type_statistique_key UNIQUE (id_pays, annee, id_type_statistique);
+
+
+--
+-- TOC entry 3244 (class 2606 OID 16510)
+-- Name: statistique statistique_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.statistique
+    ADD CONSTRAINT statistique_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3238 (class 2606 OID 16488)
+-- Name: traitement traitement_id_pays_id_type_traitement_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.traitement
+    ADD CONSTRAINT traitement_id_pays_id_type_traitement_key UNIQUE (id_pays, id_type_traitement);
+
+
+--
+-- TOC entry 3240 (class 2606 OID 16486)
+-- Name: traitement traitement_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.traitement
+    ADD CONSTRAINT traitement_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3234 (class 2606 OID 16469)
+-- Name: transmission_mere_enfant transmission_mere_enfant_id_pays_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.transmission_mere_enfant
+    ADD CONSTRAINT transmission_mere_enfant_id_pays_key UNIQUE (id_pays);
+
+
+--
+-- TOC entry 3236 (class 2606 OID 16467)
+-- Name: transmission_mere_enfant transmission_mere_enfant_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.transmission_mere_enfant
+    ADD CONSTRAINT transmission_mere_enfant_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3222 (class 2606 OID 16415)
+-- Name: type_statistique type_statistique_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.type_statistique
+    ADD CONSTRAINT type_statistique_pkey PRIMARY KEY (id_type_statistique);
+
+
+--
+-- TOC entry 3224 (class 2606 OID 16422)
+-- Name: type_traitement type_traitement_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.type_traitement
+    ADD CONSTRAINT type_traitement_pkey PRIMARY KEY (id_type_traitement);
+
+
+--
+-- TOC entry 3220 (class 2606 OID 16408)
+-- Name: unite unite_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.unite
+    ADD CONSTRAINT unite_pkey PRIMARY KEY (id_unite);
+
+
+--
+-- TOC entry 3247 (class 2606 OID 16451)
+-- Name: mortalite mortalite_id_pays_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.mortalite
+    ADD CONSTRAINT mortalite_id_pays_fkey FOREIGN KEY (id_pays) REFERENCES public.pays(id_pays);
+
+
+--
+-- TOC entry 3248 (class 2606 OID 16456)
+-- Name: mortalite mortalite_id_unite_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.mortalite
+    ADD CONSTRAINT mortalite_id_unite_fkey FOREIGN KEY (id_unite) REFERENCES public.unite(id_unite);
+
+
+--
+-- TOC entry 3245 (class 2606 OID 16432)
+-- Name: population_hiv population_hiv_id_pays_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.population_hiv
+    ADD CONSTRAINT population_hiv_id_pays_fkey FOREIGN KEY (id_pays) REFERENCES public.pays(id_pays);
+
+
+--
+-- TOC entry 3246 (class 2606 OID 16437)
+-- Name: population_hiv population_hiv_id_unite_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.population_hiv
+    ADD CONSTRAINT population_hiv_id_unite_fkey FOREIGN KEY (id_unite) REFERENCES public.unite(id_unite);
+
+
+--
+-- TOC entry 3254 (class 2606 OID 16513)
+-- Name: statistique statistique_id_pays_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.statistique
+    ADD CONSTRAINT statistique_id_pays_fkey FOREIGN KEY (id_pays) REFERENCES public.pays(id_pays);
+
+
+--
+-- TOC entry 3256 (class 2606 OID 16523)
+-- Name: statistique statistique_id_type_statistique_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.statistique
+    ADD CONSTRAINT statistique_id_type_statistique_fkey FOREIGN KEY (id_type_statistique) REFERENCES public.type_statistique(id_type_statistique);
+
+
+--
+-- TOC entry 3255 (class 2606 OID 16518)
+-- Name: statistique statistique_id_unite_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.statistique
+    ADD CONSTRAINT statistique_id_unite_fkey FOREIGN KEY (id_unite) REFERENCES public.unite(id_unite);
+
+
+--
+-- TOC entry 3251 (class 2606 OID 16489)
+-- Name: traitement traitement_id_pays_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.traitement
+    ADD CONSTRAINT traitement_id_pays_fkey FOREIGN KEY (id_pays) REFERENCES public.pays(id_pays);
+
+
+--
+-- TOC entry 3253 (class 2606 OID 16499)
+-- Name: traitement traitement_id_type_traitement_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.traitement
+    ADD CONSTRAINT traitement_id_type_traitement_fkey FOREIGN KEY (id_type_traitement) REFERENCES public.type_traitement(id_type_traitement);
+
+
+--
+-- TOC entry 3252 (class 2606 OID 16494)
+-- Name: traitement traitement_id_unite_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.traitement
+    ADD CONSTRAINT traitement_id_unite_fkey FOREIGN KEY (id_unite) REFERENCES public.unite(id_unite);
+
+
+--
+-- TOC entry 3249 (class 2606 OID 16470)
+-- Name: transmission_mere_enfant transmission_mere_enfant_id_pays_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.transmission_mere_enfant
+    ADD CONSTRAINT transmission_mere_enfant_id_pays_fkey FOREIGN KEY (id_pays) REFERENCES public.pays(id_pays);
+
+
+--
+-- TOC entry 3250 (class 2606 OID 16475)
+-- Name: transmission_mere_enfant transmission_mere_enfant_id_unite_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.transmission_mere_enfant
+    ADD CONSTRAINT transmission_mere_enfant_id_unite_fkey FOREIGN KEY (id_unite) REFERENCES public.unite(id_unite);
+
+
+-- Completed on 2025-06-06 22:39:37
+
+--
+-- PostgreSQL database dump complete
+--
+

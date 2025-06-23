@@ -1,0 +1,19 @@
+# Dépendances principales pour les scripts ETL
+pandas>=2.0.0  # Manipulation et analyse des données
+numpy>=1.24.0  # Support pour les opérations numériques
+python-dateutil>=2.8.2  # Manipulation des dates
+pytz>=2023.3  # Gestion des fuseaux horaires
+six>=1.16.0  # Compatibilité Python 2/3
+
+# Dépendances optionnelles pour la lecture de différents formats
+openpyxl>=3.1.2  # Support pour les fichiers Excel (.xlsx)
+xlrd>=2.0.1  # Support pour les anciens fichiers Excel (.xls)
+
+# Dépendances système (incluses dans Python standard)
+# logging   - Pour la journalisation des événements
+# sys       - Pour les opérations système
+# pathlib   - Pour la gestion des chemins de fichiers
+
+# Configuration recommandée
+# Python 3.8 ou supérieur
+# Encodage UTF-8 pour les fichiers CSV 
