@@ -12,22 +12,22 @@ pipeline {
             }
         }
 
-        stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv("${SONARQUBE}") {
-                    withCredentials([string(credentialsId: 'SONAR_AUTH_TOKEN', variable: 'SONAR_TOKEN')]) {
-                        sh '''
-                            sonar-scanner \
-                                -Dsonar.projectKey=mspr \
-                                -Dsonar.sources=. \
-                                -Dsonar.host.url=http://localhost:9000 \
-                                -Dsonar.login=$SONAR_TOKEN
-                        '''
-                    }
+       stage('SonarQube Analysis') {
+    steps {
+        script {
+            def scannerHome = tool 'SonarScanner' // Use the name you configured in Jenkins Tools
+            withSonarQubeEnv("${SONARQUBE}") {
+                withCredentials([string(credentialsId: 'SONAR_AUTH_TOKEN', variable: 'SONAR_TOKEN')]) {
+                    sh "${scannerHome}/bin/sonar-scanner \\
+                        -Dsonar.projectKey=mspr \\
+                        -Dsonar.sources=. \\
+                        -Dsonar.host.url=http://localhost:9000 \\
+                        -Dsonar.login=$SONAR_TOKEN"
                 }
             }
         }
-
+    }
+}
         stage('Quality Gate') {
             steps {
                 timeout(time: 2, unit: 'MINUTES') {
