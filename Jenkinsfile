@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        SONARQUBE = 'SonarQube'
+        SONARQUBE = 'SonarQube' // Nom exact du serveur SonarQube configuré dans Jenkins
     }
 
     stages {
@@ -22,7 +22,6 @@ pipeline {
                                 ${scannerHome}/bin/sonar-scanner \
                                 -Dsonar.projectKey=mspr \
                                 -Dsonar.sources=. \
-                                -Dsonar.host.url=http://sonarqube:9000 \
                                 -Dsonar.login=$SONAR_TOKEN
                             """
                         }
